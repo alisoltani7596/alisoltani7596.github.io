@@ -42,7 +42,7 @@
 
 						</ul>
 						<ul class="icons">
-							<li><a href="#" class="icon brands fa-researchgate"><span class="label">ResearchGate</span></a></li>
+							<li><a href="#" class="icon brands fa-researchgate"><span class="label">ResearchGate</span><a href="https://scholar.google.com/citations?user=sMPEoRcAAAAJ&hl=en"></a></li>
 							<li><a href="#" class="icon brands fa-lankedin"><span class="label">Lankedin</span></a></li>
 							<li><a href="#" class="icon brands fa-scholar.google"><span class="label">Google-scholar</span></a></li>
 							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
