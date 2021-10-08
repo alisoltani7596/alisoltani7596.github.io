@@ -1,5 +1,5 @@
 ///
-/// Multiverse by HTML5 UP
+/// Massively by HTML5 UP
 /// html5up.net | @ajlkn
 /// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 ///
@@ -7,82 +7,58 @@
 /* Wrapper */
 
 	#wrapper {
-		@include vendor('transition', (
-			'-moz-filter #{_duration(panel)} ease',
-			'-webkit-filter #{_duration(panel)} ease',
-			'-ms-filter #{_duration(panel)} ease',
-			'filter #{_duration(panel)} ease'
-		));
+		@include vendor('transition', 'opacity #{_duration(menu)} ease');
 		position: relative;
+		z-index: 1;
+		overflow: hidden;
 
-		&:after {
-			@include vendor('pointer-events', 'none');
-			@include vendor('transition', (
-				'opacity #{_duration(modal)} ease',
-				'visibility #{_duration(modal)}',
-			));
-			background: _palette(bg-overlay-alt);
-			content: '';
-			display: block;
-			height: 100%;
-			left: 0;
-			opacity: 0;
+		> .bg {
 			position: absolute;
 			top: 0;
-			visibility: hidden;
+			left: 0;
 			width: 100%;
-			z-index: 1;
+			height: 100%;
+			background-color:		_palette(wrapper-bg);
+			background-image:		url('../../images/overlay.png'),	linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)),	url('../../images/bg.jpg');
+			background-size:		auto,								auto,														100% auto;
+			background-position:	center,								center,														top center;
+			background-repeat:		repeat,								no-repeat,													no-repeat;
+			background-attachment:	scroll,								scroll,														scroll;
+			z-index: -1;
 
-			body.ie & {
-				background: _palette(bg-ie-overlay-alt);
+			&.fixed {
+				position: fixed;
+				width: 100vw;
+				height: 100vh;
 			}
 		}
 
-		body.modal-active & {
-			@include vendor('filter', 'blur(8px)');
-
-			&:after {
-				@include vendor('pointer-events', 'auto');
-				opacity: 1;
-				visibility: visible;
-				z-index: _misc(z-index-base) + 3;
-			}
-		}
-
-		&:before {
-			@include vendor('animation', 'spinner 1s infinite linear !important');
-			@include vendor('pointer-events', 'none');
-			@include vendor('transition', (
-				'top 0.75s ease-in-out',
-				'opacity 0.35s ease-out',
-				'visibility 0.35s'
-			));
-			background-image: url('images/spinner.svg');
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: contain;
-			content: '';
-			display: block;
-			font-size: 2em;
-			height: 2em;
-			left: 50%;
-			line-height: 2em;
-			margin: -1em 0 0 -1em;
-			opacity: 0;
-			position: fixed;
-			text-align: center;
-			top: 75%;
-			visibility: hidden;
-			width: 2em;
-		}
-
-		body.is-preload & {
+		&.fade-in {
 			&:before {
-				@include vendor('transition', 'opacity 1s ease-out !important');
-				@include vendor('transition-delay', '0.5s !important');
-				opacity: 0.25;
-				top: 50%;
-				visibility: visible;
+				@include vendor('pointer-events', 'none');
+				@include vendor('transition', 'opacity 1s ease-in-out');
+				@include vendor('transition-delay', '0.75s');
+				background: _palette(invert, bg);
+				content: '';
+				display: block;
+				height: 100%;
+				left: 0;
+				opacity: 0;
+				position: fixed;
+				top: 0;
+				width: 100%;
+			}
+
+			body.is-preload & {
+				&:before {
+					opacity: 1;
+				}
+			}
+		}
+
+		@include orientation(portrait) {
+			> .bg {
+				background-size:	auto,								auto,														auto 175%;
 			}
 		}
 	}
