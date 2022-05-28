@@ -87,31 +87,9 @@
 										Hierarchical Super-Class Learning</a></h2>
 									</header>
 									<a class="image fit"><img src="Image/4th.paper-Page-11.drawio.png" alt="" /></a>
-									<p style="font-size : 12px";>In human action recognition in still images, many existing studies have leveraged
-									extra helpful information along with class labels to mitigate the lack of
-									temporal information in still images; However, preparing extra data with manual
-									annotation is time-consuming and also prone to human errors. Moreover, the
-									existing studies in this domain have not captured semantic information and interrelationship
-									among different action classes; that is, they have equally address
-									the human activities with different granularities. In human action recognition,
-									various human activity classes such as drinking and brushing teeth contain low
-									intraclass variance, which could be classified more accurately with a hierarchical
-									priors. In this paper, we aim to learn fine-grained structure for human action
-									recognition by means of ensemble learning without any extra information. To
-									this end, we organize all action activities into a two-phase hierarchy of coarse
-									and finer categories. The first coarse phase concentrates on general attributes
-									shared by each super-class, whereas the finer phase encodes intricate fine-grained
-									details. The training dataset is first categorized into several super-classes and
-									a Convolutional Neural Network (CNN) model is trained for each super-class.
-									To choose the best configuration of each super-class and characterize intraclass
-									and interclass dependency which exists between different action classes inside and outside of each super-class, we propose a novel Graph-based Class Selection
-									(GCS) algorithm. Extensive experimental evaluations are conducted on various
-									public and private human action recognition datasets, including Stanford40 and
-									Pascal VOC2012 and BU101+ datasets. The results demonstrate that the proposed
-									method obtains promising improvement in terms of accuracy without any
-									auxiliary annotation information while running with fast speed.</p>
+									<p style="font-size : 12px";>In still image human action recognition, existing studies have mainly leveraged extra bounding box information along with class labels to mitigate the lack of temporal information in still images. However, preparing additional annotations such as human and object bounding boxes is time-consuming and also prone to human errors because these annotations are prepared manually. In this paper, we propose a two-phase multi-expert classification method for human action recognition by means of super-class learning and without any extra information. Specifically, a coarse-grained phase selects the most relevant fine-grained experts. Then, the fine-grained experts encode the intricate details within each super-class so that the inter-class variation increases. In the proposed approach, to choose the best configuration for each super-class and characterize inter-class dependency between different action classes, we propose a novel Graph-Based Class Selection (GCS) algorithm. Moreover, the proposed method copes with long-tailed distribution, which the existing studies have not addressed in action recognition. Extensive experimental evaluations are conducted on various public human action recognition datasets, including Stanford40, Pascal VOC 2012 Action, BU101+, and IHAR datasets. The experimental results demonstrate that the proposed method yields promising improvements. To be more specific, in IHAR, Sanford40, Pascal VOC 2012 Action, and BU101+ benchmarks, the proposed approach outperforms the state-of-the-art studies by 8.92%, 0.41%, 0.66%, and 2.11 % with much less computational cost and without any auxiliary annotation information. Besides, it is proven that in addressing action recognition with long-tailed distribution, the proposed method outperforms its counterparts by a significant margin.</p>
 									<ul class="actions special">
-										<li><a href="https://arxiv.org/abs/2112.07015" class="button">Learn More</a></li>
+										<li><a href="sciencedirect.com/science/article/abs/pii/S0950705122005378?via%3Dihub" class="button">Learn More</a></li>
 									</ul>
 								</article>
 								<article>
@@ -123,7 +101,7 @@
 									<a class="image fit"><img src="Image/TNT.PNG" alt="" /></a>
 									<p style="font-size : 12px";>Lack of training data and small datasets is one of the main challenges in human action recognition in still images. For this reason, training a network from scratch does not lead to good results just by using this little training data. Hence, many existing methods use the transfer learning techniques such as fine-tuning a pre-trained network with initial weights from ImageNet. It is important to note that some of the weights obtained from ImageNet are not suitable for human action recognition tasks. On the other hand, in fine-tuning the network, suitable initial weights for human action recognition may be changed. This paper proposes a method called To Transfer or Not To Transfer (TNT) based on knowledge distillation. In this method, a none trainable teacher with ImageNet weights is used to train a light student network for action recognition tasks. In order to transfer relevant knowledge and not to transfer insufficient knowledge from teacher to student, a To Transfer or Not To Transfer Loss (TNTL) function is introduced in this paper. The proposed method is evaluated on Stanford 40 and Pascal VOC datasets, and the results show the superiority of this method over existing methods that use more parameters.</p>
 									<ul class="actions special">
-										<li><a href="https://drive.google.com/file/d/1RiS-GCo7Z_B9TFk2VrmgsxJrKG-rpp0M/view?usp=sharing" class="button">Abstract</a></li>
+										<li><a href="https://ieeexplore.ieee.org/document/9721468" class="button">Learn More</a></li>
 									</ul>
 								</article>
 								<article>
