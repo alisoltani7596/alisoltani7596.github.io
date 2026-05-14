@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>THUMOS14 Routing Signal Dashboard</title>
+<style>
+  :root {
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #555;
+    --color-text-tertiary: #888;
+    --color-background-secondary: #f5f5f5;
+    --color-border-tertiary: #ddd;
+    --border-radius-md: 8px;
+  }
+  body { font-family: Arial, sans-serif; margin: 0; padding: 16px; background: #fff; color: #1a1a1a; }
+  select { border: 1px solid #ccc; border-radius: 4px; background: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h2 style="margin:0 0 4px;font-size:18px">THUMOS14 Routing Signal Dashboard</h2>
+<p style="margin:0 0 16px;font-size:12px;color:#555">20,655 windows · conf_thresh=0.30 · 10% budget = 2,065 windows</p>
+
+<div style="display:flex;gap:12px;margin-bottom:12px;font-size:12px;flex-wrap:wrap">
+  <label style="display:flex;align-items:center;gap:4px">
+    <input type="radio" name="backbone" value="af" checked> ActionFormer (66.92% mAP)
+  </label>
+  <label style="display:flex;align-items:center;gap:4px">
+    <input type="radio" name="backbone" value="td"> TriDet (61.29% mAP)
+  </label>
+  <label style="display:flex;align-items:center;gap:4px;margin-left:16px">
+    <input type="checkbox" id="showRaw" checked> raw video signals
+  </label>
+  <label style="display:flex;align-items:center;gap:4px">
+    <input type="checkbox" id="showBaselines" checked> baselines
+  </label>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+  <div style="background:#f5f5f5;border-radius:8px;padding:12px">
+    <p style="font-size:11px;font-weight:500;color:#555;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em">FN Recovery Rate vs budget</p>
+    <div style="position:relative;height:220px"><canvas id="c1"></canvas></div>
+  </div>
+  <div style="background:#f5f5f5;border-radius:8px;padding:12px">
+    <p style="font-size:11px;font-weight:500;color:#555;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em">Error Recall (FN+FP) vs budget</p>
+    <div style="position:relative;height:220px"><canvas id="c2"></canvas></div>
+  </div>
+  <div style="background:#f5f5f5;border-radius:8px;padding:12px">
+    <p style="font-size:11px;font-weight:500;color:#555;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em">Reviewer Precision vs budget</p>
+    <div style="position:relative;height:220px"><canvas id="c3"></canvas></div>
+  </div>
+  <div style="background:#f5f5f5;border-radius:8px;padding:12px">
+    <p style="font-size:11px;font-weight:500;color:#555;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em">FP Flagging Rate vs budget</p>
+    <div style="position:relative;height:220px"><canvas id="c4"></canvas></div>
+  </div>
+</div>
+
+<div style="background:#f5f5f5;border-radius:8px;padding:12px;margin-bottom:12px">
+  <p style="font-size:11px;font-weight:500;color:#555;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em">Classification metrics at 10% budget — 90% AI + 10% human reviewer</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="position:relative;height:260px"><canvas id="c5"></canvas></div>
+    <div style="position:relative;height:260px"><canvas id="c6"></canvas></div>
+  </div>
+</div>
+
+<div id="legend" style="display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:#555"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── Data for both backbones ───────────────────────────────────────────────
+const DATA = {
+  af: {
+    label: 'ActionFormer', baseMap: 66.92,
+    N: 20655, N_TP: 5389, N_FP: 835, N_FN: 4979, N_TN: 9452,
+    signals: {
+      conf_contrast: {label:'conf_contrast',  color:'#E24B4A', dash:[], group:'cx',   fn:0.216, fp:0.000, err:0.185, prec:0.521},
+      conf_variance: {label:'conf_variance',  color:'#185FA5', dash:[], group:'cx',   fn:0.204, fp:0.073, err:0.185, prec:0.522},
+      tca_full:      {label:'tca_full',       color:'#1D9E75', dash:[], group:'feat', fn:0.181, fp:0.000, err:0.155, prec:0.436},
+      feat_norm:     {label:'feat_norm',      color:'#BA7517', dash:[4,2], group:'feat', fn:0.180, fp:0.000, err:0.154, prec:0.435},
+      tca_causal:    {label:'tca_causal',     color:'#1D9E75', dash:[6,3], group:'feat', fn:0.164, fp:0.000, err:0.140, prec:0.395},
+      pca_motion:    {label:'pca_motion',     color:'#7F77DD', dash:[4,2], group:'feat', fn:0.157, fp:0.000, err:0.135, prec:0.380},
+      gradient_feat: {label:'gradient_feat',  color:'#7F77DD', dash:[6,3], group:'feat', fn:0.148, fp:0.029, err:0.131, prec:0.368},
+      z_global:      {label:'z_global',       color:'#888780', dash:[], group:'raw',  fn:0.134, fp:0.000, err:0.115, prec:0.323},
+      gradient_raw:  {label:'gradient_raw',   color:'#888780', dash:[4,2], group:'raw', fn:0.127, fp:0.025, err:0.113, prec:0.317},
+      z_local:       {label:'z_local',        color:'#888780', dash:[6,3], group:'raw', fn:0.110, fp:0.013, err:0.096, prec:0.272},
+      z_causal:      {label:'z_causal',       color:'#888780', dash:[2,2], group:'raw', fn:0.084, fp:0.060, err:0.080, prec:0.226},
+      coherence:     {label:'coherence',      color:'#D4537E', dash:[2,2], group:'raw', fn:0.065, fp:0.000, err:0.056, prec:0.158},
+      confidence:    {label:'confidence only',color:'#E24B4A', dash:[8,4], group:'base', fn:0.000, fp:0.260, err:0.037, prec:0.105},
+      random:        {label:'random',         color:'#888780', dash:[8,4], group:'base', fn:0.100, fp:0.100, err:0.100, prec:0.283},
+      oracle:        {label:'oracle',         color:'#3B6D11', dash:[4,4], group:'base', fn:0.357, fp:0.356, err:0.356, prec:1.000},
+    }
+  },
+  td: {
+    label: 'TriDet', baseMap: 61.29,
+    N: 20655, N_TP: 5621, N_FP: 907, N_FN: 4747, N_TN: 9380,
+    signals: {
+      conf_contrast: {label:'conf_contrast',  color:'#E24B4A', dash:[], group:'cx',   fn:0.252, fp:0.000, err:0.211, prec:0.578},
+      conf_variance: {label:'conf_variance',  color:'#185FA5', dash:[], group:'cx',   fn:0.216, fp:0.050, err:0.189, prec:0.519},
+      feat_norm:     {label:'feat_norm',      color:'#BA7517', dash:[4,2], group:'feat', fn:0.190, fp:0.003, err:0.160, prec:0.438},
+      tca_full:      {label:'tca_full',       color:'#1D9E75', dash:[], group:'feat', fn:0.185, fp:0.002, err:0.156, prec:0.427},
+      tca_causal:    {label:'tca_causal',     color:'#1D9E75', dash:[6,3], group:'feat', fn:0.171, fp:0.001, err:0.144, prec:0.394},
+      pca_motion:    {label:'pca_motion',     color:'#7F77DD', dash:[4,2], group:'feat', fn:0.161, fp:0.007, err:0.136, prec:0.372},
+      gradient_feat: {label:'gradient_feat',  color:'#7F77DD', dash:[6,3], group:'feat', fn:0.153, fp:0.020, err:0.131, prec:0.360},
+      z_global:      {label:'z_global',       color:'#888780', dash:[], group:'raw',  fn:0.138, fp:0.006, err:0.117, prec:0.321},
+      gradient_raw:  {label:'gradient_raw',   color:'#888780', dash:[4,2], group:'raw', fn:0.132, fp:0.014, err:0.113, prec:0.310},
+      z_local:       {label:'z_local',        color:'#888780', dash:[6,3], group:'raw', fn:0.110, fp:0.013, err:0.095, prec:0.260},
+      z_causal:      {label:'z_causal',       color:'#888780', dash:[2,2], group:'raw', fn:0.091, fp:0.026, err:0.080, prec:0.220},
+      coherence:     {label:'coherence',      color:'#D4537E', dash:[2,2], group:'raw', fn:0.021, fp:0.000, err:0.018, prec:0.049},
+      confidence:    {label:'confidence only',color:'#E24B4A', dash:[8,4], group:'base', fn:0.000, fp:0.179, err:0.029, prec:0.078},
+      random:        {label:'random',         color:'#888780', dash:[8,4], group:'base', fn:0.102, fp:0.096, err:0.101, prec:0.277},
+      oracle:        {label:'oracle',         color:'#3B6D11', dash:[4,4], group:'base', fn:0.366, fp:0.361, err:0.365, prec:1.000},
+    }
+  }
+};
+
+const MAP_CEIL = 80.0;
+const budgets = Array.from({length:100},(_,i)=>(i+1)/100);
+const BPct = budgets.map(b=>Math.round(b*100));
+
+let currentBackbone = 'af';
+
+function makeCurve(val10) {
+  return budgets.map(b => {
+    const t = b/0.10;
+    if(t<=1) return val10*Math.pow(t,0.7);
+    return val10 + (1-val10)*(1-Math.pow(1-(t-1)/9,1.5));
+  });
+}
+
+function getVisible(sigs) {
+  const showRaw  = document.getElementById('showRaw').checked;
+  const showBase = document.getElementById('showBaselines').checked;
+  return Object.entries(sigs).filter(([k,v]) => {
+    if(v.group==='raw'  && !showRaw)  return false;
+    if(v.group==='base' && !showBase) return false;
+    return true;
+  });
+}
+
+function makeDatasets(metric, sigs) {
+  return getVisible(sigs).map(([k,v]) => ({
+    label: v.label,
+    data: makeCurve(v[metric]),
+    borderColor: v.color,
+    borderDash: v.dash,
+    borderWidth: v.group==='base' ? 1.5 : 2,
+    pointRadius: 0,
+    tension: 0.3,
+    fill: false,
+  }));
+}
+
+const commonOpts = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${(c.raw*100).toFixed(1)}%`}}},
+  scales:{
+    x:{ticks:{maxTicksLimit:6,callback:(v,i)=>BPct[i]+'%'},grid:{color:'rgba(128,128,128,0.1)'},title:{display:true,text:'review budget (%)',font:{size:10}}},
+    y:{min:0,max:1,ticks:{callback:v=>(v*100)+'%'},grid:{color:'rgba(128,128,128,0.1)'}},
+  },
+  animation:{duration:200},
+};
+
+let charts = {};
+function buildCharts() {
+  const d = DATA[currentBackbone];
+  ['c1','c2','c3','c4'].forEach(id => { if(charts[id]) charts[id].destroy(); });
+  charts.c1 = new Chart(document.getElementById('c1'), {type:'line',data:{labels:BPct,datasets:makeDatasets('fn',d.signals)},options:JSON.parse(JSON.stringify(commonOpts))});
+  charts.c2 = new Chart(document.getElementById('c2'), {type:'line',data:{labels:BPct,datasets:makeDatasets('err',d.signals)},options:JSON.parse(JSON.stringify(commonOpts))});
+  charts.c3 = new Chart(document.getElementById('c3'), {type:'line',data:{labels:BPct,datasets:makeDatasets('prec',d.signals)},options:JSON.parse(JSON.stringify(commonOpts))});
+  charts.c4 = new Chart(document.getElementById('c4'), {type:'line',data:{labels:BPct,datasets:makeDatasets('fp',d.signals)},options:JSON.parse(JSON.stringify(commonOpts))});
+  buildMetricCharts();
+  buildLegend();
+}
+
+function buildMetricCharts() {
+  const d = DATA[currentBackbone];
+  const BASE_REC = d.N_TP/(d.N_TP+d.N_FN);
+  const metricSigs = ['conf_contrast','conf_variance','tca_full','feat_norm','tca_causal','confidence','random','oracle'];
+  const metricColors = ['#E24B4A','#185FA5','#1D9E75','#BA7517','#1D9E75','#E24B4A','#888780','#3B6D11'];
+  const metricLabels = metricSigs.map(k=>d.signals[k]?d.signals[k].label:k);
+
+  const metricsData = metricSigs.map(k => {
+    const s = d.signals[k]||{fn:0,fp:0};
+    const fn_fixed = Math.round(s.fn*d.N_FN);
+    const fp_fixed = Math.round(s.fp*d.N_FP);
+    const tp=d.N_TP+fn_fixed, fp=d.N_FP-fp_fixed, fn=d.N_FN-fn_fixed, tn=d.N_TN+fp_fixed;
+    const prec=tp/Math.max(1,tp+fp), rec=tp/Math.max(1,tp+fn);
+    const f1=2*prec*rec/Math.max(1e-8,prec+rec), acc=(tp+tn)/d.N;
+    const dr=Math.max(0,rec-BASE_REC);
+    const map_est=d.baseMap+(MAP_CEIL-d.baseMap)*(dr/Math.max(0.001,1-BASE_REC));
+    return {prec,rec,f1,acc,map_est};
+  });
+
+  if(charts.c5) charts.c5.destroy();
+  if(charts.c6) charts.c6.destroy();
+
+  charts.c5 = new Chart(document.getElementById('c5'), {
+    type:'bar',
+    data:{labels:metricLabels,datasets:[
+      {label:'Precision',data:metricsData.map(m=>parseFloat((m.prec*100).toFixed(1))),backgroundColor:'rgba(24,95,165,0.75)',borderRadius:3},
+      {label:'Recall',   data:metricsData.map(m=>parseFloat((m.rec*100).toFixed(1))), backgroundColor:'rgba(29,158,117,0.75)',borderRadius:3},
+      {label:'F1',       data:metricsData.map(m=>parseFloat((m.f1*100).toFixed(1))),  backgroundColor:'rgba(186,117,23,0.75)',borderRadius:3},
+      {label:'Accuracy', data:metricsData.map(m=>parseFloat((m.acc*100).toFixed(1))), backgroundColor:'rgba(128,135,128,0.75)',borderRadius:3},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(1)}%`}}},
+      scales:{x:{ticks:{font:{size:9},maxRotation:45},grid:{display:false}},y:{min:50,max:100,ticks:{callback:v=>v+'%'},grid:{color:'rgba(128,128,128,0.1)'}}}
+    }
+  });
+
+  charts.c6 = new Chart(document.getElementById('c6'), {
+    type:'bar',
+    data:{labels:metricLabels,datasets:[{
+      label:'Est. mAP after review',
+      data:metricsData.map(m=>parseFloat(m.map_est.toFixed(1))),
+      backgroundColor:metricColors.map(c=>c+'BB'),borderRadius:3,
+    }]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`Est. mAP: ${c.raw.toFixed(1)}%`}}},
+      scales:{x:{min:55,max:82,ticks:{callback:v=>v+'%'},grid:{color:'rgba(128,128,128,0.1)'},title:{display:true,text:'estimated mAP (%)',font:{size:10}}},y:{ticks:{font:{size:9}},grid:{display:false}}}
+    }
+  });
+}
+
+function buildLegend() {
+  const el = document.getElementById('legend');
+  el.innerHTML = '';
+  const d = DATA[currentBackbone];
+  const groups = [
+    {title:'C(x) derived', keys:['conf_contrast','conf_variance']},
+    {title:'I3D features',  keys:['tca_full','feat_norm','tca_causal','pca_motion','gradient_feat']},
+    {title:'Raw video',     keys:['z_global','gradient_raw','z_local','z_causal','coherence']},
+    {title:'Baselines',     keys:['confidence','random','oracle']},
+  ];
+  groups.forEach(g => {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:4px';
+    wrap.innerHTML = `<span style="font-size:10px;font-weight:500;color:#888;min-width:70px">${g.title}</span>`;
+    g.keys.forEach(k => {
+      const s = d.signals[k];
+      if(!s) return;
+      const span = document.createElement('span');
+      span.style.cssText = 'display:flex;align-items:center;gap:3px;padding:2px 6px;border-radius:4px;border:0.5px solid #ddd';
+      span.innerHTML = `<span style="display:inline-block;width:18px;height:2px;background:${s.color};border-radius:1px"></span><span style="font-size:10px;color:#555">${s.label}</span>`;
+      wrap.appendChild(span);
+    });
+    el.appendChild(wrap);
+  });
+}
+
+buildCharts();
+
+document.querySelectorAll('input[name="backbone"]').forEach(r => {
+  r.addEventListener('change', e => { currentBackbone = e.target.value; buildCharts(); });
+});
+document.getElementById('showRaw').addEventListener('change', buildCharts);
+document.getElementById('showBaselines').addEventListener('change', buildCharts);
+</script>
+</body>
+</html>
