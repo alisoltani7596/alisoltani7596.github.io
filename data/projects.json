@@ -12,13 +12,13 @@
   },
   {
     "id": "task-aware-anonymization",
-    "title": "Task-Aware Anonymization Framework",
-    "summary": "A task-aware anonymization framework that hides identity while preserving the cues downstream vision tasks depend on.",
-    "tags": ["Anonymization", "Privacy", "In Progress"],
+    "title": "Privacy-Preserving Video Anonymization for At-Sea Monitoring",
+    "summary": "Masking who's in frame — and measuring how well — without touching what reviewers need to see.",
+    "tags": ["Video Privacy", "Anonymization", "Real-World Deployment"],
     "img": "assets/img/task-aware-anonymization.png",
     "badge": "In Progress",
     "links": { "paper": "", "code": "", "dataset": "" },
-    "details": "A task-aware anonymization framework for video: it removes personally identifying information while preserving the motion and appearance cues that downstream tasks — like action recognition — rely on. The goal is perception that can run in privacy-sensitive settings without trading away analytical performance. Ongoing research."
+    "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting — detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. What sets it apart is how privacy is treated: not assumed from visual inspection, but stress-tested against adversaries that actively try to re-identify the people in anonymized video. Paper in preparation."
   },
   {
     "id": "robust-marine",
@@ -26,7 +26,7 @@
     "summary": "Perception methods resilient to occlusion, weather, lighting and motion blur.",
     "tags": ["Robustness", "Maritime", "Ongoing"],
     "img": "assets/img/robust-marine.png",
-    "badge": "Ongoing",
+    "badge": "In Progress",
     "links": { "paper": "", "code": "", "dataset": "" },
     "details": "A line of work on making video-understanding models hold up in the conditions that break them in practice: spray and occlusion, rapidly changing weather and lighting, and severe motion blur from vessel movement. The focus is on reliability and graceful degradation for real maritime deployments rather than benchmark-only accuracy."
   },
