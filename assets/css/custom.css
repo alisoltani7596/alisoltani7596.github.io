@@ -131,8 +131,14 @@ img { max-width: 100%; display: block; }
   max-width: var(--maxw); margin: 0 auto; padding: 14px 28px;
   display: flex; align-items: center; gap: 24px;
 }
-.nav-logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.03em; }
+.nav-logo { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.03em; display: inline-flex; align-items: center; }
 .nav-logo .dot { color: var(--accent); }
+.nav-logo-img {
+  width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+  display: none; border: 1px solid var(--border-strong);
+}
+.nav-logo-img.is-ready { display: block; }
+.nav-logo-img.is-ready + .nav-logo-text { display: none; }
 .nav-links { display: flex; gap: 22px; margin-left: auto; flex-wrap: wrap; }
 .nav-links a {
   color: var(--muted); font-size: 0.9rem; transition: color 0.2s var(--ease);

@@ -15,7 +15,7 @@
     "title": "Task-Aware Anonymization Framework",
     "summary": "A task-aware anonymization framework that hides identity while preserving the cues downstream vision tasks depend on.",
     "tags": ["Anonymization", "Privacy", "In Progress"],
-    "img": "assets/img/Picture1.png",
+    "img": "assets/img/task-aware-anonymization.png",
     "badge": "In Progress",
     "links": { "paper": "", "code": "", "dataset": "" },
     "details": "A task-aware anonymization framework for video: it removes personally identifying information while preserving the motion and appearance cues that downstream tasks — like action recognition — rely on. The goal is perception that can run in privacy-sensitive settings without trading away analytical performance. Ongoing research."
@@ -25,7 +25,7 @@
     "title": "Robust Video Understanding for Harsh Marine Environments",
     "summary": "Perception methods resilient to occlusion, weather, lighting and motion blur.",
     "tags": ["Robustness", "Maritime", "Ongoing"],
-    "img": "assets/img/saved-pictures.png",
+    "img": "assets/img/robust-marine.png",
     "badge": "Ongoing",
     "links": { "paper": "", "code": "", "dataset": "" },
     "details": "A line of work on making video-understanding models hold up in the conditions that break them in practice: spray and occlusion, rapidly changing weather and lighting, and severe motion blur from vessel movement. The focus is on reliability and graceful degradation for real maritime deployments rather than benchmark-only accuracy."
@@ -47,7 +47,7 @@
     "title": "TrapCounter",
     "summary": "Detection, tracking and optical-flow pipeline for automatic counting of active fishing traps.",
     "tags": ["Tracking", "Optical Flow", "Industry-Deployed"],
-    "img": "assets/img/4th.paper-Page-15.drawio.png",
+    "img": "assets/img/trapcounter.png",
     "badge": "CRV 2025 · First Author",
     "links": { "paper": "https://crv.pubpub.org/pub/y0r9m3dn/release/1", "code": "", "dataset": "" },
     "details": "TrapCounter combines object detection, multi-object tracking and optical flow to automatically count active fishing traps as they are deployed and hauled. The pipeline is robust to camera motion and harsh marine lighting and has been deployed in an industry setting. First-author work published at CRV 2025."
@@ -57,7 +57,7 @@
     "title": "Discard Action Detection",
     "summary": "Real-time motion-aware detection of rare discard events in commercial fishing footage.",
     "tags": ["Action Recognition", "Maritime", "Real-Time"],
-    "img": "assets/img/Picture2.png",
+    "img": "assets/img/discard-detection.png",
     "badge": "Industry",
     "links": { "paper": "", "code": "", "dataset": "" },
     "details": "A motion-aware detection system that identifies rare and visually subtle discard events in long hours of commercial fishing video. It is built for real-time operation on at-sea hardware, handling class imbalance, occlusion and noisy maritime conditions to support catch monitoring and compliance."
