@@ -1,14 +1,14 @@
 [
   {
     "id": "ai-em-assistant",
-    "title": "AI Assistant for Fisheries Electronic Monitoring",
-    "summary": "An AI assistant that works alongside human reviewers of at-sea video — helping them cover more footage and miss less.",
-    "tags": ["Human-AI", "Video Review", "Under Review"],
+    "title": "Steering Human Review Toward AI Mistakes in Video",
+    "summary": "When an AI watches hours of video, its costliest failures are the events it never flags. This work asks where a limited human review budget should go — and points it at the model's likely errors.",
+    "tags": ["Human-AI", "Action Detection", "Under Review"],
     "img": "assets/img/ai-assistant.png",
     "imgFallback": "assets/img/Picture2.png",
-    "badge": "Ongoing · Under review",
+    "badge": "Under review",
     "links": { "paper": "", "code": "", "dataset": "" },
-    "details": "An ongoing collaboration on human–AI teaming for fisheries electronic monitoring. The system supports the people who review long hours of at-sea video, helping them move faster while catching more of what matters. The method and results are written up in a paper currently under review, so I'm keeping the details light for now."
+    "details": "No AI video system is perfect, and no human can re-watch everything it processed. This project studies how a fixed amount of human review time should be spent when a detector's output can't be fully trusted — with special attention to the errors that are hardest to find: the events the model missed entirely. The approach works with existing detectors as-is, without retraining them, and is evaluated on public video benchmarks across multiple detection models. The full method and results are in a paper currently under review, so I'm keeping the details light until then."
   },
   {
     "id": "task-aware-anonymization",
