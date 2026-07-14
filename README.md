@@ -1,230 +1,63 @@
-<!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Ali Soltani Nezhad</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+# alisoltani7596.github.io
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+Personal site for Ali Soltaninezhad — PhD candidate in Electrical & Computer
+Engineering at the University of Victoria (computer vision, video understanding,
+deployable AI).
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Ali Soltani Nezhad<br />
-						</h1>
-						<p>I am a research assistant at the Computer Vision Center at the Iran University of Science & Technology. 
-						I received my master's degree in Electrical Engineering in 2018, supervised by Prof. 
-						<a href="https://scholar.google.com/citations?user=sMPEoRcAAAAJ&hl=en">Shahriar Baradaran Shokouhi</a>.
-						My long-term research goal is to enable AI agents to explain phenomena beyond low-level statistics of observable data.</p>
-						<ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+Single-page, dark-mode-first site. **No build step** — plain HTML/CSS/JS served
+directly by GitHub Pages.
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Massively</a>
-					</header>
+## Stack
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">About Me</a></li>
+- Hand-written CSS (`assets/css/custom.css`), theming via `[data-theme]` + CSS variables
+- Vanilla JS (no framework)
+- [GSAP](https://gsap.com/) + ScrollTrigger via CDN for scroll reveals & tilt
+- Animated gradient-mesh hero on `<canvas>` (no Three.js)
+- Google Fonts: Inter (body) + Space Grotesk (headings)
 
-						</ul>
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-researchgate"><span class="label">ResearchGate</span><a href="https://scholar.google.com/citations?user=sMPEoRcAAAAJ&hl=en"></a></li>
-							<li><a href="#" class="icon brands fa-lankedin"><span class="label">Lankedin</span></a></li>
-							<li><a href="#" class="icon brands fa-scholar.google"><span class="label">Google-scholar</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
+## Structure
 
-				<!-- Main -->
-					<div id="main">
+```
+index.html              Single page, all sections + JSON-LD + meta
+assets/css/custom.css   All styles (dark + light themes)
+assets/js/main.js       Nav, theme toggle, mobile menu, rotator, projects render
+assets/js/hero-bg.js    Gradient-mesh canvas background
+assets/js/publications.js  Publication list + type/year filtering
+assets/js/animations.js GSAP scroll reveals, section-title reveal, 3D tilt
+assets/img/             Project thumbnails
+assets/cv/              Drop Ali_Soltaninezhad_CV.pdf here
+data/projects.json      Project cards (data-driven)
+data/publications.json  Publications (data-driven)
+favicon.svg  robots.txt  sitemap.xml  .nojekyll
+```
 
-						<!-- Featured Post -->
-							<article class="post featured">
-								<header class="major">
-									<span class="date">April 25, 2017</span>
-									<h2><a href="#">And this is a<br />
-									massive headline</a></h2>
-									<p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
-									facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
-									amet nullam sed etiam veroeros.</p>
-								</header>
-								<a href="#" class="image main"><img src="images/pic01.jpg" alt="" /></a>
-								<ul class="actions special">
-									<li><a href="#" class="button large">Full Story</a></li>
-								</ul>
-							</article>
+`.nojekyll` disables Jekyll so `data/` and all assets are served verbatim.
 
-						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										<span class="date">April 24, 2017</span>
-										<h2><a href="#">Sed magna<br />
-										ipsum faucibus</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 22, 2017</span>
-										<h2><a href="#">Primis eget<br />
-										imperdiet lorem</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 18, 2017</span>
-										<h2><a href="#">Ante mattis<br />
-										interdum dolor</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 14, 2017</span>
-										<h2><a href="#">Tempus sed<br />
-										nulla imperdiet</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 11, 2017</span>
-										<h2><a href="#">Odio magna<br />
-										sed consectetur</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 7, 2017</span>
-										<h2><a href="#">Augue lorem<br />
-										primis vestibulum</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-							</section>
+## Editing content
 
-						<!-- Footer -->
-							<footer>
-								<div class="pagination">
-									<!--<a href="#" class="previous">Prev</a>-->
-									<a href="#" class="page active">1</a>
-									<a href="#" class="page">2</a>
-									<a href="#" class="page">3</a>
-									<span class="extra">&hellip;</span>
-									<a href="#" class="page">8</a>
-									<a href="#" class="page">9</a>
-									<a href="#" class="page">10</a>
-									<a href="#" class="next">Next</a>
-								</div>
-							</footer>
+- **Add a publication:** append one object to `data/publications.json`
+  (`type` is `Journal` or `Conference`; `status` is `Accepted` or `Published`;
+  `highlight: true` pins it to the top). No code change needed.
+- **Add a project:** append one object to `data/projects.json`.
+- **CV button:** add `assets/cv/Ali_Soltaninezhad_CV.pdf` (path is already wired).
+- **Contact form:** create a free form at [formspree.io](https://formspree.io)
+  and replace `YOUR_FORM_ID` in `index.html` with your endpoint ID.
 
-					</div>
+## Local preview
 
-				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<form method="post" action="#">
-								<div class="fields">
-									<div class="field">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field">
-										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="3"></textarea>
-									</div>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</form>
-						</section>
-						<section class="split contact">
-							<section class="alt">
-								<h3>Address</h3>
-								<p>1234 Somewhere Road #87257<br />
-								Nashville, TN 00000-0000</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">(000) 000-0000</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">info@untitled.tld</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+```
+python3 -m http.server 8000
+```
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+Then open <http://localhost:8000/> (a server is required — the JSON files are
+loaded with `fetch`, which does not work from `file://`).
 
-			</div>
+## Accessibility & performance
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+- All motion respects `prefers-reduced-motion`
+- Keyboard-navigable nav, theme toggle, project disclosure, form
+- WCAG-AA contrast in both themes
+- Images lazy-loaded with explicit dimensions; fonts preconnected with `display=swap`
 
-	</body>
-</html>
+The previous HTML5 UP template is preserved in `_legacy/` and the unused
+`elements.html` / `generic.html` files remain for reference.

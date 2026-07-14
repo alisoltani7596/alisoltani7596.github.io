@@ -1,0 +1,90 @@
+[
+  {
+    "title": "TubeLite: Lightweight Multi-Actor Spatio-Temporal Action Detection",
+    "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, and A. Branzan Albu",
+    "venue": "International Conference on Pattern Recognition (ICPR)",
+    "year": 2026,
+    "type": "Conference",
+    "status": "Accepted",
+    "link": "https://arxiv.org/abs/2607.04684",
+    "doi": "",
+    "highlight": true
+  },
+  {
+    "title": "TrapCounter: Integrating Detection, Tracking and Optical Flow for the Automatic Counting of Active Fishing Traps",
+    "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, A. Branzan Albu, V. Diaz Gimeno, J. W. Lower, and R. Prussin",
+    "venue": "Conference on Robots and Vision (CRV)",
+    "year": 2025,
+    "type": "Conference",
+    "status": "Published",
+    "link": "https://crv.pubpub.org/pub/y0r9m3dn/release/1",
+    "doi": "",
+    "highlight": true
+  },
+  {
+    "title": "Missed-Event Routing for Temporal Action Detection",
+    "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, and A. Branzan Albu",
+    "venue": "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)",
+    "year": 2027,
+    "type": "Conference",
+    "status": "Under review",
+    "link": "",
+    "doi": "",
+    "highlight": false
+  },
+  {
+    "title": "Error-Aware Reviewer Guidance for AI-Assisted Fisheries Electronic Monitoring",
+    "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, A. Branzan Albu, and J. Lower",
+    "venue": "European Conference on Computer Vision (ECCV)",
+    "year": 2026,
+    "type": "Conference",
+    "status": "Under review",
+    "link": "",
+    "doi": "",
+    "highlight": false
+  },
+  {
+    "title": "Quilting-based Image Pre-processing for Commercial Ground Hook and Line Fishing Imagery Classification",
+    "authors": "A. Rico Espinosa, M. Cote, A. Soltaninezhad, T. Porto Marques, A. Branzan Albu, V. Diaz Gimeno, J. W. Lower, and R. Prussin",
+    "venue": "International Conference on Pattern Recognition (ICPR)",
+    "year": 2026,
+    "type": "Conference",
+    "status": "Accepted",
+    "link": "",
+    "doi": "",
+    "highlight": false
+  },
+  {
+    "title": "Multi-Expert Human Action Recognition with Hierarchical Super-Class Learning",
+    "authors": "H. A. Dehkordi, A. Soltaninezhad, H. Kashiyani, S. B. Shokouhi, and A. Ayatollahi",
+    "venue": "Knowledge-Based Systems",
+    "year": 2022,
+    "type": "Journal",
+    "status": "Published",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0950705122005378",
+    "doi": "",
+    "highlight": false
+  },
+  {
+    "title": "To Transfer or Not To Transfer (TNT): Action Recognition in Still Image Using Transfer Learning",
+    "authors": "A. Soltaninezhad, H. A. Dehkordi, S. S. Ashrafi, and S. B. Shokouhi",
+    "venue": "International Conference on Computer and Knowledge Engineering (ICCKE)",
+    "year": 2021,
+    "type": "Conference",
+    "status": "Published",
+    "link": "https://ieeexplore.ieee.org/document/9721468",
+    "doi": "",
+    "highlight": false
+  },
+  {
+    "title": "Still Image Action Recognition Using Ensemble Learning",
+    "authors": "H. A. Dehkordi, A. Soltaninezhad, S. S. Ashrafi, and S. B. Shokouhi",
+    "venue": "International Conference on Web Research (ICWR)",
+    "year": 2021,
+    "type": "Conference",
+    "status": "Published",
+    "link": "https://ieeexplore.ieee.org/abstract/document/9443021",
+    "doi": "",
+    "highlight": false
+  }
+]
