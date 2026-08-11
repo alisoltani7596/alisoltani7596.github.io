@@ -5,8 +5,8 @@
     "venue": "International Conference on Pattern Recognition (ICPR)",
     "year": 2026,
     "type": "Conference",
-    "status": "Accepted",
-    "link": "https://arxiv.org/abs/2607.04684",
+    "status": "Published",
+    "link": "https://link.springer.com/chapter/10.1007/978-3-032-31663-9_46",
     "doi": "",
     "highlight": true
   },
@@ -35,10 +35,10 @@
   {
     "title": "Error-Aware Reviewer Guidance for AI-Assisted Fisheries Electronic Monitoring",
     "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, A. Branzan Albu, and J. Lower",
-    "venue": "European Conference on Computer Vision (ECCV)",
+    "venue": "2nd Workshop on Marine Vision, European Conference on Computer Vision (ECCV)",
     "year": 2026,
     "type": "Conference",
-    "status": "Under review",
+    "status": "Accepted",
     "link": "",
     "doi": "",
     "highlight": false
@@ -49,8 +49,8 @@
     "venue": "International Conference on Pattern Recognition (ICPR)",
     "year": 2026,
     "type": "Conference",
-    "status": "Accepted",
-    "link": "",
+    "status": "Published",
+    "link": "https://link.springer.com/chapter/10.1007/978-3-032-31666-0_2",
     "doi": "",
     "highlight": false
   },
