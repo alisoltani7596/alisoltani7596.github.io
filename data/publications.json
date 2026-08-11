@@ -33,17 +33,6 @@
     "highlight": true
   },
   {
-    "title": "Quilting-based Image Pre-processing for Commercial Ground Hook and Line Fishing Imagery Classification",
-    "authors": "A. Rico Espinosa, M. Cote, A. Soltaninezhad, T. Porto Marques, A. Branzan Albu, V. Diaz Gimeno, J. W. Lower, and R. Prussin",
-    "venue": "International Conference on Pattern Recognition (ICPR)",
-    "year": 2026,
-    "type": "Conference",
-    "status": "Published",
-    "link": "https://link.springer.com/chapter/10.1007/978-3-032-31666-0_2",
-    "doi": "",
-    "highlight": true
-  },
-  {
     "title": "TrapCounter: Integrating Detection, Tracking and Optical Flow for the Automatic Counting of Active Fishing Traps",
     "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, A. Branzan Albu, V. Diaz Gimeno, J. W. Lower, and R. Prussin",
     "venue": "Conference on Robots and Vision (CRV)",
@@ -53,6 +42,17 @@
     "link": "https://crv.pubpub.org/pub/y0r9m3dn/release/1",
     "doi": "",
     "highlight": true
+  },
+  {
+    "title": "Quilting-based Image Pre-processing for Commercial Ground Hook and Line Fishing Imagery Classification",
+    "authors": "A. Rico Espinosa, M. Cote, A. Soltaninezhad, T. Porto Marques, A. Branzan Albu, V. Diaz Gimeno, J. W. Lower, and R. Prussin",
+    "venue": "International Conference on Pattern Recognition (ICPR)",
+    "year": 2026,
+    "type": "Conference",
+    "status": "Published",
+    "link": "https://link.springer.com/chapter/10.1007/978-3-032-31666-0_2",
+    "doi": "",
+    "highlight": false
   },
   {
     "title": "Multi-Expert Human Action Recognition with Hierarchical Super-Class Learning",
