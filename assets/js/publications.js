@@ -16,11 +16,7 @@
       return (state.type === "all" || p.type === state.type) &&
              (state.year === "all" || String(p.year) === state.year);
     });
-    // highlighted first, then by year desc
-    items.sort(function (a, b) {
-      if (a.highlight !== b.highlight) return a.highlight ? -1 : 1;
-      return b.year - a.year;
-    });
+    // order follows publications.json (filtering preserves that order)
 
     if (!items.length) {
       listEl.innerHTML = '<li class="loading">No publications match this filter.</li>';
