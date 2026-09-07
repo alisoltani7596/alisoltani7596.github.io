@@ -151,7 +151,10 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px 28px 80px; }
 .card .reason { font-size: 12px; color: var(--me); line-height: 1.35; }
 .card .reason.us { color: var(--her); }
 .card .c-title { font-weight: 600; font-size: 14px; line-height: 1.3; }
-.card .c-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.card .c-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); display: flex; gap: 2px 8px; flex-wrap: wrap; }
+.card .c-meta span + span::before { content: "·"; margin-right: 8px; color: var(--faint); }
+.card .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.card .actions .btn { justify-content: center; min-width: 0; padding-left: 6px; padding-right: 6px; white-space: nowrap; }
 .scores { display: flex; flex-wrap: wrap; gap: 4px; }
 .score {
   font-family: var(--mono); font-size: 10.5px; font-variant-numeric: tabular-nums; padding: 2px 6px; border-radius: 4px;
@@ -170,7 +173,7 @@ main { max-width: 1280px; margin: 0 auto; padding: 24px 28px 80px; }
 .svc.free { border-color: var(--me); }
 .svc.none { color: var(--faint); border-style: dashed; }
 .svc.mine { border-color: var(--text); }
-.actions { display: flex; gap: 6px; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text);
   padding: 6px 10px; border-radius: var(--radius); font-size: 12.5px; font-weight: 500; transition: transform .12s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
@@ -1327,7 +1330,7 @@ function cardHTML(t, opts) {
       <button type="button" class="btn sm me${e.w.ali ? " is-on" : ""}" data-act="seen" data-p="ali" data-id="${t.id}" title="Ali has seen this"><svg class="ic"><use href="#i-check"/></svg>Me</button>
       <button type="button" class="btn sm her${e.w.arefeh ? " is-on" : ""}" data-act="seen" data-p="arefeh" data-id="${t.id}" title="Arefeh has seen this"><svg class="ic"><use href="#i-check"/></svg>Arefeh</button>
       <button type="button" class="btn sm${onList ? " is-on" : ""}" data-act="list" data-id="${t.id}" title="${state.who === "me" ? "Save to my list" : "Save to our list"}"><svg class="ic"><use href="#i-bookmark"/></svg>${onList ? "Saved" : "Save"}</button>
-      <a class="btn sm icon play" href="${scoreLinks(t).trailer}" target="_blank" rel="noopener" title="${t.trailer ? "Trailer on IMDb" : "Find the trailer on YouTube"}"><svg class="ic"><use href="#i-play"/></svg></a>
+      <a class="btn sm play" href="${scoreLinks(t).trailer}" target="_blank" rel="noopener" title="${t.trailer ? "Trailer on IMDb" : "Find the trailer on YouTube"}"><svg class="ic"><use href="#i-play"/></svg>Trailer</a>
     </div>
   </article>`;
 }
