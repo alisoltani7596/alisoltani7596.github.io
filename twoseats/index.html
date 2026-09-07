@@ -1300,7 +1300,9 @@ function scoreChips(t, full) {
   const chip = (key, label, val, suffix) => val == null
     ? (full ? `<span class="score na"><i>${label}</i>—</span>` : "")
     : `<a class="score" href="${L[key]}" target="_blank" rel="noopener" title="${esc(label)} — opens the source to check"><i>${label}</i><b>${val}${suffix || ""}</b></a>`;
-  return `<div class="scores">${chip("imdb", "IMDb", s.imdb)}${chip("rt", "RT", s.rt, "%")}${full ? chip("rt", "RT aud.", s.rta, "%") : ""}${chip("mc", "MC", s.mc)}${chip("cs", "CS", s.cs)}${chip("google", "Google", s.google, "%")}${chip("lb", "LB", s.lb)}</div>`;
+  // Cards show the three headline scores; the detail panel (full) shows everything.
+  if (!full) return `<div class="scores">${chip("imdb", "IMDb", s.imdb)}${chip("rt", "RT", s.rt, "%")}${chip("google", "Google", s.google, "%")}</div>`;
+  return `<div class="scores">${chip("imdb", "IMDb", s.imdb)}${chip("rt", "RT critics", s.rt, "%")}${chip("rt", "RT audience", s.rta, "%")}${chip("google", "Google users", s.google, "%")}${chip("mc", "Metacritic", s.mc)}${chip("cs", "CinemaScore", s.cs)}${chip("lb", "Letterboxd", s.lb)}</div>`;
 }
 function svcBadges(t, opts) {
   const list = whereOf(t);
