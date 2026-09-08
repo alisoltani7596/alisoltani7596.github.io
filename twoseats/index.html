@@ -1348,13 +1348,17 @@ function mergeModel(q, m, text) {
   const out = JSON.parse(JSON.stringify(q)); const low = " " + norm(text) + " ";
   const arr = v => Array.isArray(v) ? v.filter(x => typeof x === "string" && x.trim()) : [];
   const inText = s => { const n = norm(s); return n.length >= 3 && low.includes(" " + n + " "); };
-  const okTitle = s => { const n = norm(s).replace(/^(the|a|an) /, ""); return n.length >= 5 && !GENERIC_WORDS.has(n) && low.includes(" " + n + " "); };
+  const wordy = s => GENRE_WORDS.some(([rx]) => rx.test(s)) || MOOD_WORDS.some(([rx]) => rx.test(s));
+  const okTitle = s => { const n = norm(s).replace(/^(the|a|an) /, ""); return n.length >= 5 && !GENERIC_WORDS.has(n) && !wordy(n) && low.includes(" " + n + " "); };
+  // strict: the phrase must be (part of) a real title, no fuzzy stretching for model output
+  const strictTitle = s => { const n = norm(s).replace(/^(the|a|an) /, ""); if (n.length < 5) return null; const pool = api.titles.filter(t => { const tn = norm(t.title).replace(/^(the|a|an) /, ""); return tn === n || tn.startsWith(n + " ") || (n.length >= 8 && tn.includes(n)); }); return pool.sort((a, b) => (b.votes || 0) - (a.votes || 0))[0] || null; };
   const surnameInText = name => norm(name).split(" ").some(tok => tok.length >= 4 && low.includes(" " + tok + " "));
   const likeIds = new Set(out.like.map(x => (resolveTitle(x) || {}).id).filter(Boolean));
   for (const x of arr(m.like).concat(arr(m.people))) {
-    const t = resolveTitle(x), p = resolvePerson(x);
+    const p = resolvePerson(x);
     if (p && surnameInText(p) && !out.people.includes(p)) { out.people.push(p); continue; }
-    if (t && !likeIds.has(t.id) && (okTitle(x) || okTitle(t.title))) { out.like.push(x); likeIds.add(t.id); }
+    const t = okTitle(x) ? strictTitle(x) : null;
+    if (t && !likeIds.has(t.id)) { out.like.push(t.title); likeIds.add(t.id); }
   }
   const negated = /\b(no|not|without|nothing|avoid|except|minus|isn t|aren t|don t)\b/.test(low);
   for (const g of arr(m.excludeGenres)) if (api.GENRE_ORDER.includes(g) && negated) out.excludeGenres.push(g);
