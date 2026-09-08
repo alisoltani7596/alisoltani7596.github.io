@@ -1356,9 +1356,12 @@ function mergeModel(q, m, text) {
     if (p && surnameInText(p) && !out.people.includes(p)) { out.people.push(p); continue; }
     if (t && !likeIds.has(t.id) && (okTitle(x) || okTitle(t.title))) { out.like.push(x); likeIds.add(t.id); }
   }
-  for (const g of arr(m.excludeGenres)) if (api.GENRE_ORDER.includes(g) && /\b(no|not|without|nothing|avoid|except|minus)\b/.test(low)) out.excludeGenres.push(g);
+  const negated = /\b(no|not|without|nothing|avoid|except|minus|isn t|aren t|don t)\b/.test(low);
+  for (const g of arr(m.excludeGenres)) if (api.GENRE_ORDER.includes(g) && negated) out.excludeGenres.push(g);
   for (const mood of arr(m.moods)) for (const [rx, tags] of MOOD_WORDS) if (rx.test(mood.toLowerCase())) out.moods.push(...tags);
-  for (const mood of arr(m.excludeMoods)) for (const [rx, tags] of MOOD_WORDS) if (rx.test(mood.toLowerCase())) out.excludeMoods.push(...tags);
+  if (negated) for (const mood of arr(m.excludeMoods)) for (const [rx, tags] of MOOD_WORDS) if (rx.test(mood.toLowerCase())) out.excludeMoods.push(...tags);
+  out.excludeMoods = out.excludeMoods.filter(x => !out.moods.includes(x));
+  out.excludeGenres = out.excludeGenres.filter(x => !out.genres.includes(x));
   if (/\b(heavy|serious|grim|depressing|sad)\b/.test(low) && /\b(nothing|not|no|without)\b/.test(low)) out.excludeMoods.push("dark");
   for (const l of arr(m.languages)) { const code = LANG_WORDS[l.toLowerCase()] || Object.keys(api.LANGS).find(k => api.LANGS[k].toLowerCase() === l.toLowerCase()); if (code && (inText(l) || Object.keys(LANG_WORDS).some(w => LANG_WORDS[w] === code && inText(w)))) out.origin.langs.push(code); }
   for (const cn of arr(m.countries)) if (inText(cn) || Object.keys(COUNTRY_WORDS).some(w => COUNTRY_WORDS[w].split("|").includes(cn) && inText(w))) out.origin.countries.push(cn);
