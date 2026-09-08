@@ -551,7 +551,8 @@ html.js .reveal.is-in { opacity: 1; transform: none; }
   .sec { padding: 64px 0; }
   .hero-media { width: 100%; }
   .bento, .cards, .stats { grid-template-columns: 1fr; }
-  .tile { min-height: 0; }
+  /* match the tablet rule's specificity, or tiles 1 and 2 keep their height floor */
+  .tile, .tile:nth-child(1), .tile:nth-child(2) { min-height: 0; }
   .rows .row { grid-template-columns: 1fr; gap: 4px; }
   .facts div { grid-template-columns: 96px 1fr; }
   .footer-cols { grid-template-columns: 1fr; gap: 24px; }
