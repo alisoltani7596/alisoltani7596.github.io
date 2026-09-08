@@ -1253,6 +1253,24 @@ function sim(t, ref) {
   if (t.t === ref.t) s += 0.2; if (t.lang && t.lang === ref.lang) s += 0.15;
   return s;
 }
+// The hard filters of a request. Used for the search itself and for anything the local
+// model suggests, so a suggestion can't ignore "Persian" or "series".
+function passesQuery(t, q, who, people) {
+  if (q.type !== "any" && t.t !== q.type) return false;
+  if (api.state.type !== "all" && t.t !== api.state.type) return false;
+  if (!q.includeSeen && !api.unseenFor(api.getEntry(t.id), who)) return false;
+  if (q.genres.length && !q.genres.every(g => t.genres.includes(g))) return false;
+  if (q.excludeGenres.some(g => t.genres.includes(g))) return false;
+  if (q.excludeMoods.some(x => t.tags.includes(x))) return false;
+  if (q.origin.langs.length || q.origin.countries.length) { if (!(q.origin.langs.includes(t.lang) || t.country.some(x => q.origin.countries.includes(x)))) return false; }
+  if (q.yearFrom && t.year < q.yearFrom) return false; if (q.yearTo && t.year > q.yearTo) return false;
+  if (q.minImdb && (t.scores.imdb == null || t.scores.imdb < q.minImdb)) return false;
+  if (q.maxRuntime && t.t === "movie" && (!t.runtime || t.runtime > q.maxRuntime)) return false;
+  if (q.minRuntime && t.t === "movie" && (!t.runtime || t.runtime < q.minRuntime)) return false;
+  if (q.maxRuntime && t.t === "series" && t.runtime && t.runtime > q.maxRuntime) return false;
+  if (people.length && !people.some(p => t.cast.includes(p) || t.director.includes(p))) return false;
+  return true;
+}
 function runQuery(q) {
   const who = q.forUs ? "us" : api.state.who;
   const refs = q.like.map(resolveTitle).filter(Boolean);
@@ -1264,23 +1282,7 @@ function runQuery(q) {
   const notes = [];
   if (q.like.length && !refs.length) notes.push(`Couldn't find "${q.like.join('", "')}" in the library.`);
   const missing = q.people.filter((p, i) => !resolvePerson(p)); if (missing.length) notes.push(`No one called "${missing.join('", "')}" in the library's cast lists.`);
-  let cands = api.titles.filter(t => {
-    if (refIds.has(t.id)) return false;
-    if (q.type !== "any" && t.t !== q.type) return false;
-    if (api.state.type !== "all" && t.t !== api.state.type) return false;
-    if (!q.includeSeen && !api.unseenFor(api.getEntry(t.id), who)) return false;
-    if (q.genres.length && !q.genres.every(g => t.genres.includes(g))) return false;
-    if (q.excludeGenres.some(g => t.genres.includes(g))) return false;
-    if (q.excludeMoods.some(x => t.tags.includes(x))) return false;
-    if (q.origin.langs.length || q.origin.countries.length) { if (!(q.origin.langs.includes(t.lang) || t.country.some(x => q.origin.countries.includes(x)))) return false; }
-    if (q.yearFrom && t.year < q.yearFrom) return false; if (q.yearTo && t.year > q.yearTo) return false;
-    if (minImdb && (t.scores.imdb == null || t.scores.imdb < minImdb)) return false;
-    if (q.maxRuntime && t.t === "movie" && (!t.runtime || t.runtime > q.maxRuntime)) return false;
-    if (q.minRuntime && t.t === "movie" && (!t.runtime || t.runtime < q.minRuntime)) return false;
-    if (q.maxRuntime && t.t === "series" && t.runtime && t.runtime > q.maxRuntime) return false;
-    if (people.length && !people.some(p => t.cast.includes(p) || t.director.includes(p))) return false;
-    return true;
-  });
+  const cands = api.titles.filter(t => !refIds.has(t.id) && passesQuery(t, q, who, people));
   const scored = cands.map(t => {
     const base = c.scores[t.id]; let s = 0.55 * base.q + 0.45 * (q.forUs && base.joint != null ? base.joint : (who === "us" ? base.fa : base.fa));
     let simTotal = 0, shared = [];
@@ -1348,10 +1350,15 @@ function mergeModel(q, m, text) {
   const out = JSON.parse(JSON.stringify(q)); const low = " " + norm(text) + " ";
   const arr = v => Array.isArray(v) ? v.filter(x => typeof x === "string" && x.trim()) : [];
   const inText = s => { const n = norm(s); return n.length >= 3 && low.includes(" " + n + " "); };
-  const wordy = s => GENRE_WORDS.some(([rx]) => rx.test(s)) || MOOD_WORDS.some(([rx]) => rx.test(s));
+  const wordy = s => GENRE_WORDS.some(([rx]) => rx.test(s)) || MOOD_WORDS.some(([rx]) => rx.test(s)) || LANG_WORDS[s] || COUNTRY_WORDS[s];
   const okTitle = s => { const n = norm(s).replace(/^(the|a|an) /, ""); return n.length >= 5 && !GENERIC_WORDS.has(n) && !wordy(n) && low.includes(" " + n + " "); };
-  // strict: the phrase must be (part of) a real title, no fuzzy stretching for model output
-  const strictTitle = s => { const n = norm(s).replace(/^(the|a|an) /, ""); if (n.length < 5) return null; const pool = api.titles.filter(t => { const tn = norm(t.title).replace(/^(the|a|an) /, ""); return tn === n || tn.startsWith(n + " ") || (n.length >= 8 && tn.includes(n)); }); return pool.sort((a, b) => (b.votes || 0) - (a.votes || 0))[0] || null; };
+  // Strict: the phrase must BE a title, not merely start one — "Korean" must not become
+  // "A Korean Odyssey". No fuzzy stretching for model output.
+  const strictTitle = s => {
+    const n = norm(s).replace(/^(the|a|an) /, ""); if (n.length < 5) return null;
+    const pool = api.titles.filter(t => { const tn = norm(t.title).replace(/^(the|a|an) /, ""); return tn === n || (tn.startsWith(n + " ") && n.length >= 0.7 * tn.length); });
+    return pool.sort((a, b) => (b.votes || 0) - (a.votes || 0))[0] || null;
+  };
   const surnameInText = name => norm(name).split(" ").some(tok => tok.length >= 4 && low.includes(" " + tok + " "));
   const likeIds = new Set(out.like.map(x => (resolveTitle(x) || {}).id).filter(Boolean));
   for (const x of arr(m.like).concat(arr(m.people))) {
@@ -1397,7 +1404,7 @@ function renderEngine() {
     <div class="row">${model}</div>${loading ? `<div class="bar"><div style="width:${Math.round(progress * 100)}%"></div></div>` : ""}
     ${loadErr ? `<p class="hint" style="color:var(--her)">${esc(loadErr)}</p>` : ""}
     ${gpu && !engine && !loading ? `<label class="hint"><input type="checkbox" id="askAuto"${prefs.auto ? " checked" : ""}> Load it automatically next time (fast once cached)</label>` : ""}
-    <p class="hint">The model runs on this device and only reads your request to turn it into a search; nothing is uploaded. It can also suggest titles from its own knowledge, which are checked against the library.</p>`;
+    <p class="hint">The model runs on this device and only reads your request to turn it into a search; nothing is uploaded. Its own title suggestions are shown only when they fit every part of the request. The 0.5B model is weak at this; 1.5B or 3B are much better.</p>`;
 }
 function renderResult() {
   const out = $("#askResult"); if (!out) return;
@@ -1426,9 +1433,9 @@ function renderResult() {
   }
   if (q.suggestions && q.suggestions.length) {
     const seen = new Set(shown.map(x => x.t.id)); run.refs.forEach(r => seen.add(r.id));
-    const found = uniq(q.suggestions.map(s => resolveTitle(s)).filter(t => t && !seen.has(t.id)));
-    const missing = q.suggestions.filter(s => !resolveTitle(s));
-    if (found.length || missing.length) html += `<section class="shelf"><div class="shelf-head"><h2>The local model also suggests</h2><span class="count">${found.length}</span><span class="why">from its own memory, checked against the library${missing.length ? ` · not in the library: ${esc(missing.join(", "))}` : ""}</span></div>${found.length ? `<div class="grid">${found.map(t => api.cardHTML(t)).join("")}</div>` : ""}</section>`;
+    // must exist in the library, not already be shown, and satisfy every hard filter of the request
+    const found = uniq(q.suggestions.map(s => resolveTitle(s)).filter(t => t && !seen.has(t.id) && passesQuery(t, q, run.who, run.people)));
+    if (found.length) html += `<section class="shelf"><div class="shelf-head"><h2>The local model also suggests</h2><span class="count">${found.length}</span><span class="why">from its own memory, kept only where it fits the request</span></div><div class="grid">${found.map(t => api.cardHTML(t)).join("")}</div></section>`;
   }
   out.innerHTML = html;
 }
