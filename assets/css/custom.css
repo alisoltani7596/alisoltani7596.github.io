@@ -364,15 +364,17 @@ html[data-theme="dark"] .icon-moon { display: none; }
 @keyframes float { from { transform: translateY(0); } to { transform: translateY(-8px); } }
 
 /* ---------- Research highlights: bento ---------- */
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+/* Height floors give the desktop bento its presence. Below that the grid already
+   equalizes each row, so the floors only strand text at the bottom of short tiles. */
+.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; --tile-min: 180px; --tile-min-wide: 200px; }
 .tile {
-  grid-column: span 2; min-height: 220px;
-  display: flex; flex-direction: column; justify-content: flex-end;
+  grid-column: span 2; min-height: var(--tile-min);
+  display: flex; flex-direction: column; justify-content: flex-start;
   padding: clamp(24px, 3vw, 34px);
   background: var(--panel); border-radius: var(--r-card); box-shadow: var(--sh-card);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
-.tile:nth-child(1), .tile:nth-child(2) { grid-column: span 3; min-height: 260px; }
+.tile:nth-child(1), .tile:nth-child(2) { grid-column: span 3; min-height: var(--tile-min-wide); }
 .tile:hover { transform: translateY(-3px); box-shadow: var(--sh-lift); }
 .tile h3 { font-size: clamp(21px, 2.4vw, 26px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; }
 .tile p { margin-top: 8px; font-size: 15px; line-height: 1.5; color: var(--text-2); }
@@ -543,7 +545,8 @@ html.js .reveal.is-in { opacity: 1; transform: none; }
 
   .about { grid-template-columns: 1fr; gap: 40px; }
   .bento { grid-template-columns: 1fr 1fr; }
-  .tile, .tile:nth-child(1), .tile:nth-child(2) { grid-column: span 1; min-height: 200px; }
+  .bento { --tile-min: 0px; --tile-min-wide: 0px; }
+  .tile, .tile:nth-child(1), .tile:nth-child(2) { grid-column: span 1; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
 }
 
@@ -551,8 +554,6 @@ html.js .reveal.is-in { opacity: 1; transform: none; }
   .sec { padding: 64px 0; }
   .hero-media { width: 100%; }
   .bento, .cards, .stats { grid-template-columns: 1fr; }
-  /* match the tablet rule's specificity, or tiles 1 and 2 keep their height floor */
-  .tile, .tile:nth-child(1), .tile:nth-child(2) { min-height: 0; }
   .rows .row { grid-template-columns: 1fr; gap: 4px; }
   .facts div { grid-template-columns: 96px 1fr; }
   .footer-cols { grid-template-columns: 1fr; gap: 24px; }
