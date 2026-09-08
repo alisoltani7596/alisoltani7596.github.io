@@ -239,6 +239,7 @@
           var external = "";
           if (p.links) {
             if (p.links.paper) external += '<a class="link" href="' + p.links.paper + '" target="_blank" rel="noopener">Paper</a>';
+            if (p.links.poster) external += '<a class="link" href="' + p.links.poster + '" target="_blank" rel="noopener">Poster</a>';
             if (p.links.code) external += '<a class="link" href="' + p.links.code + '" target="_blank" rel="noopener">Code</a>';
             if (p.links.dataset) external += '<a class="link" href="' + p.links.dataset + '" target="_blank" rel="noopener">Dataset</a>';
           }

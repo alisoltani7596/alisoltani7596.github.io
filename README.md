@@ -39,6 +39,7 @@ assets/js/publications.js  Publication list + type/year filtering
 assets/img/fishvue-deck.jpg Industry chapter media (TrapCounter output)
 assets/img/thumbs/         Project thumbnails (900px JPEGs); originals stay in assets/img/
 assets/cv/                 Ali_Soltaninezhad_CV.pdf
+assets/posters/            Conference posters linked from project cards
 data/projects.json         Project cards
 data/publications.json     Publications
 favicon.svg  robots.txt  sitemap.xml  .nojekyll
@@ -54,7 +55,8 @@ favicon.svg  robots.txt  sitemap.xml  .nojekyll
 - **Add a project:** append one object to `data/projects.json`; point `img` at a
   900px-wide JPEG in `assets/img/thumbs/` (`sips -Z 900 -s format jpeg in.png --out thumbs/out.jpg`).
   `imgFit: "contain"` shows a wide figure whole instead of cropping it, and `oral: true`
-  adds an accent Oral tag next to the badge.
+  adds an accent Oral tag next to the badge. `links` accepts `paper`, `poster`, `code`
+  and `dataset`; empty strings are skipped.
 - **CV button:** keep `assets/cv/Ali_Soltaninezhad_CV.pdf` up to date (path is wired).
 
 ## Local preview
