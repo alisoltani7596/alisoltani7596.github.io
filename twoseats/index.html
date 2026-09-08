@@ -453,7 +453,7 @@ table.log .note { color: var(--muted); max-width: 42ch; }
         </select>
       </fieldset>
       <fieldset>
-        <legend>Genre <span class="legend-hint">tap once to require, twice to exclude</span></legend>
+        <legend>Genre <span class="legend-hint">tap once to keep, twice to exclude, again to clear</span></legend>
         <div class="chips" id="genreChips"></div>
       </fieldset>
       <fieldset class="ranges">
@@ -480,11 +480,11 @@ table.log .note { color: var(--muted); max-width: 42ch; }
         <div class="chips" id="serviceChips"></div>
       </fieldset>
       <fieldset>
-        <legend>Language <span class="legend-hint">none selected = all</span></legend>
+        <legend>Language <span class="legend-hint">same taps; nothing kept = all</span></legend>
         <div class="chips" id="langChips"></div>
       </fieldset>
       <fieldset>
-        <legend>Country</legend>
+        <legend>Country <span class="legend-hint">same taps</span></legend>
         <div class="chips" id="countryChips"></div>
       </fieldset>
       <button type="button" class="btn ghost" id="resetFilters"><svg class="ic"><use href="#i-reset"/></svg>Reset filters</button>
@@ -1137,7 +1137,16 @@ const state = {
   drawerId: null, drawerReason: null,
   recCache: null
 };
-const DEFAULT_FILTERS = () => ({ q: "", sort: "fit", status: "any", genres: [], genresOut: [], minImdb: 0, minRt: 0, minMc: 0, minGoogle: 0, minLb: 0, minCs: "", require: false, yearFrom: 2000, yearTo: 2026, services: [], langs: ["en", "fa"], countries: [] });
+const DEFAULT_FILTERS = () => ({ q: "", sort: "fit", status: "any", genres: [], genresOut: [], minImdb: 0, minRt: 0, minMc: 0, minGoogle: 0, minLb: 0, minCs: "", require: false, yearFrom: 2000, yearTo: 2026, services: [], langs: ["en", "fa"], langsOut: [], countries: [], countriesOut: [] });
+// Three-state chip: off -> required -> excluded -> off.
+function cycle3(f, inKey, outKey, value) {
+  const inc = f[inKey], out = f[outKey];
+  if (inc.includes(value)) { inc.splice(inc.indexOf(value), 1); out.push(value); }
+  else if (out.includes(value)) out.splice(out.indexOf(value), 1);
+  else inc.push(value);
+}
+function chipState(f, inKey, outKey, value) { return f[inKey].includes(value) ? " is-on" : f[outKey].includes(value) ? " neg is-on" : ""; }
+function chipTitle(f, inKey, outKey, value, noun) { return f[inKey].includes(value) ? `Kept — tap to exclude ${noun}` : f[outKey].includes(value) ? `Excluded — tap to clear` : `Tap to keep only ${noun}`; }
 const FIRST_LANGS = ["en", "fa"];
 const PAGE = 48;
 state.filters = DEFAULT_FILTERS();
@@ -1476,7 +1485,9 @@ function filteredTitles() {
     if (f.genres.length && !f.genres.every(g => t.genres.includes(g))) return false;
     if (f.genresOut.length && f.genresOut.some(g => t.genres.includes(g))) return false;
     if (f.langs.length && !f.langs.includes(t.lang)) return false;
+    if (f.langsOut.length && f.langsOut.includes(t.lang)) return false;
     if (f.countries.length && !t.country.some(c => f.countries.includes(c))) return false;
+    if (f.countriesOut.length && t.country.some(c => f.countriesOut.includes(c))) return false;
     const s = t.scores;
     const chk = (v, min) => min > 0 ? (v == null ? !f.require : v >= min) : true;
     if (!chk(s.imdb, f.minImdb) || !chk(s.rt, f.minRt) || !chk(s.mc, f.minMc) || !chk(s.google, f.minGoogle) || !chk(s.lb, f.minLb)) return false;
@@ -1509,20 +1520,20 @@ function renderBrowse(keepPage) {
     if (t.lang) lcounts[t.lang] = (lcounts[t.lang] || 0) + 1;
     for (const c of t.country) ccounts[c] = (ccounts[c] || 0) + 1;
   }
-  $("#genreChips").innerHTML = GENRE_ORDER.filter(g => gcounts[g]).map(g => `<button type="button" class="chip${f.genres.includes(g) ? " is-on" : f.genresOut.includes(g) ? " neg is-on" : ""}" data-genre="${g}" title="${f.genres.includes(g) ? "Required — tap to exclude" : f.genresOut.includes(g) ? "Excluded — tap to clear" : "Tap to require"}">${g}<span class="n">${gcounts[g]}</span></button>`).join("");
+  $("#genreChips").innerHTML = GENRE_ORDER.filter(g => gcounts[g]).map(g => `<button type="button" class="chip${chipState(f, "genres", "genresOut", g)}" data-genre="${g}" title="${chipTitle(f, "genres", "genresOut", g, "this genre")}">${g}<span class="n">${gcounts[g]}</span></button>`).join("");
   const sv = [["mine", "My subscriptions"], ["free", "Free"], ["none", "Rent only"]].concat(SERVICE_ORDER.map(k => [k, SERVICES[k].name]));
   $("#serviceChips").innerHTML = sv.map(([k, n]) => `<button type="button" class="chip${f.services.includes(k) ? " is-on" : ""}" data-svc="${k}"${SERVICES[k] ? ` style="--c:${SERVICES[k].c}"` : ""}>${esc(n)}</button>`).join("");
   // languages: English and Persian first, then by count; selected ones always visible
   const rest = Object.keys(lcounts).filter(l => !FIRST_LANGS.includes(l)).sort((a, b) => lcounts[b] - lcounts[a]);
   const langOrder = FIRST_LANGS.concat(rest);
-  const langShown = state.langsOpen ? langOrder : langOrder.filter((l, i) => i < 12 || f.langs.includes(l));
-  $("#langChips").innerHTML = langShown.map(l => `<button type="button" class="chip${f.langs.includes(l) ? " is-on" : ""}" data-lang="${l}">${esc(LANGS[l] || l)}<span class="n">${lcounts[l] || 0}</span></button>`).join("")
+  const langShown = state.langsOpen ? langOrder : langOrder.filter((l, i) => i < 12 || f.langs.includes(l) || f.langsOut.includes(l));
+  $("#langChips").innerHTML = langShown.map(l => `<button type="button" class="chip${chipState(f, "langs", "langsOut", l)}" data-lang="${l}" title="${chipTitle(f, "langs", "langsOut", l, "this language")}">${esc(LANGS[l] || l)}<span class="n">${lcounts[l] || 0}</span></button>`).join("")
     + (langOrder.length > langShown.length ? `<button type="button" class="chip more-chip" data-showall="langs">+${langOrder.length - langShown.length} more</button>` : state.langsOpen ? `<button type="button" class="chip more-chip" data-showall="langs">fewer</button>` : "");
   const countryOrder = Object.keys(ccounts).sort((a, b) => ccounts[b] - ccounts[a]);
-  const countryShown = state.countriesOpen ? countryOrder : countryOrder.filter((c, i) => i < 16 || f.countries.includes(c));
-  $("#countryChips").innerHTML = countryShown.map(c => `<button type="button" class="chip${f.countries.includes(c) ? " is-on" : ""}" data-country="${esc(c)}">${esc(c)}<span class="n">${ccounts[c]}</span></button>`).join("")
+  const countryShown = state.countriesOpen ? countryOrder : countryOrder.filter((c, i) => i < 16 || f.countries.includes(c) || f.countriesOut.includes(c));
+  $("#countryChips").innerHTML = countryShown.map(c => `<button type="button" class="chip${chipState(f, "countries", "countriesOut", c)}" data-country="${esc(c)}" title="${chipTitle(f, "countries", "countriesOut", c, "this country")}">${esc(c)}<span class="n">${ccounts[c]}</span></button>`).join("")
     + (countryOrder.length > countryShown.length ? `<button type="button" class="chip more-chip" data-showall="countries">+${countryOrder.length - countryShown.length} more</button>` : state.countriesOpen ? `<button type="button" class="chip more-chip" data-showall="countries">fewer</button>` : "");
-  const active = f.genres.length + f.genresOut.length + f.langs.length + f.countries.length + f.services.length + (f.status !== "any") + (f.minImdb > 0) + (f.minRt > 0) + (f.minMc > 0) + (f.minGoogle > 0) + (f.minLb > 0) + (f.minCs ? 1 : 0) + (f.yearFrom > 2000) + (f.yearTo < 2026);
+  const active = f.genres.length + f.genresOut.length + f.langs.length + f.langsOut.length + f.countries.length + f.countriesOut.length + f.services.length + (f.status !== "any") + (f.minImdb > 0) + (f.minRt > 0) + (f.minMc > 0) + (f.minGoogle > 0) + (f.minLb > 0) + (f.minCs ? 1 : 0) + (f.yearFrom > 2000) + (f.yearTo < 2026);
   $("#filtersToggle").textContent = active ? `Filters · ${active} active` : "Filters";
   saveLocal();
   $("#sort").value = f.sort; $("#status").value = f.status; $("#q").value = f.q;
@@ -1757,10 +1768,10 @@ document.addEventListener("click", ev => {
   if (b.dataset.who) { state.who = b.dataset.who; state.recCache = null; saveLocal(); renderAll(); return; }
   if (b.dataset.type) { state.type = b.dataset.type; saveLocal(); renderAll(); return; }
   if (b.dataset.tab) { state.tab = b.dataset.tab; renderAll(); return; }
-  if (b.dataset.genre) { const f = state.filters, g = b.dataset.genre; if (f.genres.includes(g)) { f.genres.splice(f.genres.indexOf(g), 1); f.genresOut.push(g); } else if (f.genresOut.includes(g)) f.genresOut.splice(f.genresOut.indexOf(g), 1); else f.genres.push(g); renderBrowse(); return; }
+  if (b.dataset.genre) { cycle3(state.filters, "genres", "genresOut", b.dataset.genre); renderBrowse(); return; }
   if (b.dataset.svc) { const s = state.filters.services; const i = s.indexOf(b.dataset.svc); i >= 0 ? s.splice(i, 1) : s.push(b.dataset.svc); renderBrowse(); return; }
-  if (b.dataset.lang) { const l = state.filters.langs; const i = l.indexOf(b.dataset.lang); i >= 0 ? l.splice(i, 1) : l.push(b.dataset.lang); renderBrowse(); return; }
-  if (b.dataset.country) { const cs = state.filters.countries; const i = cs.indexOf(b.dataset.country); i >= 0 ? cs.splice(i, 1) : cs.push(b.dataset.country); renderBrowse(); return; }
+  if (b.dataset.lang) { cycle3(state.filters, "langs", "langsOut", b.dataset.lang); renderBrowse(); return; }
+  if (b.dataset.country) { cycle3(state.filters, "countries", "countriesOut", b.dataset.country); renderBrowse(); return; }
   if (b.dataset.showall) { const k = b.dataset.showall === "langs" ? "langsOpen" : "countriesOpen"; state[k] = !state[k]; renderBrowse(true); return; }
   if (b.id === "filtersToggle") { $("#filters").classList.toggle("is-open"); return; }
   if (b.id === "resetFilters") { state.filters = DEFAULT_FILTERS(); renderBrowse(); return; }
