@@ -1,65 +1,98 @@
 [
   {
-    "id": "ai-em-assistant",
-    "title": "Steering Human Review Toward AI Mistakes in Video",
-    "summary": "When an AI watches hours of video, its costliest failures are the events it never flags. This work asks where a limited human review budget should go — and points it at the model's likely errors.",
-    "tags": ["Human-AI", "Action Detection", "Under Review"],
-    "img": "assets/img/ai-assistant.png",
-    "imgFallback": "assets/img/Picture2.png",
-    "badge": "Under review",
-    "links": { "paper": "", "code": "", "dataset": "" },
-    "details": "No AI video system is perfect, and no human can re-watch everything it processed. This project studies how a fixed amount of human review time should be spent when a detector's output can't be fully trusted — with special attention to the errors that are hardest to find: the events the model missed entirely. The approach works with existing detectors as-is, without retraining them, and is evaluated on public video benchmarks across multiple detection models. The full method and results are in a paper currently under review, so I'm keeping the details light until then."
+    "id": "error-aware-guidance",
+    "title": "Which 10% do you show the human?",
+    "summary": "Deck cameras record everything; reviewers watch about a tenth of it. This points that same tenth at the predictions most likely to be wrong.",
+    "tags": [
+      "Human-AI review",
+      "Action detection",
+      "Marine vision"
+    ],
+    "img": "assets/img/thumbs/eccv-guidance.jpg",
+    "badge": "ECCVW 2026 · First author",
+    "links": {
+      "paper": "https://openreview.net/forum?id=1cmuiiSYVa",
+      "code": "",
+      "dataset": ""
+    },
+    "details": "Deck cameras record all fishing activity, but reviewers watch roughly 10% of it, so whatever the AI gets wrong outside that slice stays in the record. This work scores every prediction of a frozen detector by how likely it is to be an error, combining the model's own confidence with a second saliency signal that the confidence does not capture, and hands the top of that ranking to the reviewer. One term targets missed events, where the evidence is there but confidence is low; the other targets false alarms, where confidence is high and evidence is thin. At the same 10% budget the audited record ends up holding 55 of 57 events, against 50 for the detector alone and 52 under random review, and the gain holds across three temporal detectors and two image classifiers. No retraining, no larger model, no failure labels: the only thing that changes is where the reviewer looks. Oral at the 2nd Workshop on Marine Vision, ECCV Workshops (ECCVW) 2026.",
+    "imgFit": "contain",
+    "oral": true
   },
   {
     "id": "task-aware-anonymization",
     "title": "Privacy-Preserving Video Anonymization for At-Sea Monitoring",
     "summary": "Masking who's in frame — and measuring how well — without touching what reviewers need to see.",
-    "tags": ["Video Privacy", "Anonymization", "Real-World Deployment"],
-    "img": "assets/img/task-aware.png",
+    "tags": [
+      "Video Privacy",
+      "Anonymization",
+      "Real-World Deployment"
+    ],
+    "img": "assets/img/thumbs/task-aware.jpg",
     "badge": "In Progress",
-    "links": { "paper": "", "code": "", "dataset": "" },
+    "links": {
+      "paper": "",
+      "code": "",
+      "dataset": ""
+    },
     "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting — detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. What sets it apart is how privacy is treated: not assumed from visual inspection, but stress-tested against adversaries that actively try to re-identify the people in anonymized video. Paper in preparation."
-  },
-  {
-    "id": "robust-marine",
-    "title": "Robust Video Understanding for Harsh Marine Environments",
-    "summary": "Perception methods resilient to occlusion, weather, lighting and motion blur.",
-    "tags": ["Robustness", "Maritime", "Ongoing"],
-    "img": "assets/img/robust-marine.png",
-    "badge": "In Progress",
-    "links": { "paper": "", "code": "", "dataset": "" },
-    "details": "A line of work on making video-understanding models hold up in the conditions that break them in practice: spray and occlusion, rapidly changing weather and lighting, and severe motion blur from vessel movement. The focus is on reliability and graceful degradation for real maritime deployments rather than benchmark-only accuracy."
   },
   {
     "id": "tubelite",
     "title": "TubeLite",
     "summary": "Lightweight multi-actor spatio-temporal action detection — no heavy transformers or optical flow.",
-    "tags": ["Action Detection", "Actor Tubes", "Efficiency"],
-    "img": "assets/img/tubelite-architecture.png",
+    "tags": [
+      "Action Detection",
+      "Actor Tubes",
+      "Efficiency"
+    ],
+    "img": "assets/img/thumbs/tubelite-architecture.jpg",
     "imgFit": "contain",
     "imgFallback": "assets/img/4th.paper-Page-28.drawio.png",
-    "badge": "ICPR 2026 · First Author",
-    "links": { "paper": "https://arxiv.org/abs/2607.04684", "code": "", "dataset": "" },
-    "details": "TubeLite localizes actors spatially and identifies temporal action boundaries without relying on heavy transformers or optical flow. It builds stable actor tubes with temporal consistency at both the spatial and semantic levels, pairing actor detection with Gaussian-weighted ROI feature extraction and short-term actor-wise temporal propagation. It improves over comparable methods by 4.5 and 7.1 percentage points on two benchmarks while using substantially fewer parameters and FLOPs than transformer-based alternatives. First-author work accepted to ICPR 2026 (arXiv:2607.04684)."
+    "badge": "ICPR 2026 · First author",
+    "links": {
+      "paper": "https://arxiv.org/abs/2607.04684",
+      "code": "",
+      "dataset": ""
+    },
+    "details": "TubeLite localizes actors spatially and identifies temporal action boundaries without relying on heavy transformers or optical flow. It builds stable actor tubes with temporal consistency at both the spatial and semantic levels, pairing actor detection with Gaussian-weighted ROI feature extraction and short-term actor-wise temporal propagation. It improves over comparable methods by 4.5 and 7.1 percentage points on two benchmarks while using substantially fewer parameters and FLOPs than transformer-based alternatives. First-author work accepted to ICPR 2026 (arXiv:2607.04684).",
+    "oral": true
   },
   {
     "id": "trapcounter",
     "title": "TrapCounter",
     "summary": "Detection, tracking and optical-flow pipeline for automatic counting of active fishing traps.",
-    "tags": ["Tracking", "Optical Flow", "Industry-Deployed"],
-    "img": "assets/img/trapcounter.png",
-    "badge": "CRV 2025 · First Author",
-    "links": { "paper": "https://crv.pubpub.org/pub/y0r9m3dn/release/1", "code": "", "dataset": "" },
-    "details": "TrapCounter combines object detection, multi-object tracking and optical flow to automatically count active fishing traps as they are deployed and hauled. The pipeline is robust to camera motion and harsh marine lighting and has been deployed in an industry setting. First-author work published at CRV 2025."
+    "tags": [
+      "Tracking",
+      "Optical Flow",
+      "Industry-Deployed"
+    ],
+    "img": "assets/img/thumbs/trapcounter.jpg",
+    "badge": "CRV 2025 · First author",
+    "links": {
+      "paper": "https://crv.pubpub.org/pub/y0r9m3dn/release/1",
+      "code": "",
+      "dataset": ""
+    },
+    "details": "TrapCounter combines object detection, multi-object tracking and optical flow to automatically count active fishing traps as they are deployed and hauled. The pipeline is robust to camera motion and harsh marine lighting and has been deployed in an industry setting. First-author work published at CRV 2025.",
+    "oral": true
   },
   {
     "id": "discard-detection",
     "title": "Discard Action Detection",
     "summary": "Real-time motion-aware detection of rare discard events in commercial fishing footage.",
-    "tags": ["Action Recognition", "Maritime", "Real-Time"],
-    "img": "assets/img/discard-detection.png",
+    "tags": [
+      "Action Recognition",
+      "Maritime",
+      "Real-Time"
+    ],
+    "img": "assets/img/thumbs/discard-detection.jpg",
     "badge": "Industry",
-    "links": { "paper": "", "code": "", "dataset": "" },
+    "links": {
+      "paper": "",
+      "code": "",
+      "dataset": ""
+    },
     "details": "A motion-aware detection system that identifies rare and visually subtle discard events in long hours of commercial fishing video. It is built for real-time operation on at-sea hardware, handling class imbalance, occlusion and noisy maritime conditions to support catch monitoring and compliance."
   }
 ]

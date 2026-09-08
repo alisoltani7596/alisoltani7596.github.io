@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iris — canvas prototype</title>
+<style>
+:root{ --grid:24px; --bar-h:56px; --radius:14px; }
+
+/* ---- themes ---------------------------------------------------------- */
+:root[data-theme="light"]{
+  --bg:#f6f6f7; --dot:#cdcdd3;
+  --bar:#0b0b0d; --bar-fg:#f4f4f5; --bar-muted:#a0a0a8; --bar-active:#28282d; --bar-border:transparent;
+  --card:#f0f0f2; --card-border:#e0e0e5;
+  --card-shadow:0 1px 2px rgba(0,0,0,.05), 0 10px 28px rgba(0,0,0,.07);
+  --fg:#141416; --muted:#6e6e77; --line:#e3e3e8;
+  --accent:#141416; --accent-soft:#e5e5ea; --ring:#f4f4f5;
+  --amber:#b4741b; --amber-soft:#faefda; --ok:#2e8b57; --ok-soft:#e2f2e9;
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#121214; --dot:#2d2d33;
+  --bar:#09090b; --bar-fg:#f4f4f5; --bar-muted:#7f7f88; --bar-active:#232328; --bar-border:transparent;
+  --card:#1b1b1f; --card-border:#2a2a30;
+  --card-shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.35);
+  --fg:#ececef; --muted:#8e8e97; --line:#2a2a30;
+  --accent:#ececef; --accent-soft:#2a2a30; --ring:#ececef;
+  --amber:#e0a44a; --amber-soft:#2d2415; --ok:#5cc08a; --ok-soft:#15291e;
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
+}
+:root[data-theme="iris"]{
+  --bg:#04080a; --dot:#10292e;
+  --bar:#04080a; --bar-fg:#cdf3f6; --bar-muted:#4f8b92; --bar-active:#0a2a2f; --bar-border:#0f353b;
+  --card:#070f12; --card-border:#0f353b;
+  --card-shadow:0 0 0 1px rgba(51,214,224,.05), 0 10px 30px rgba(0,0,0,.6);
+  --fg:#d2f2f5; --muted:#5f949b; --line:#0f353b;
+  --accent:#33d6e0; --accent-soft:#0a2a2f; --ring:#33d6e0;
+  --amber:#f0b445; --amber-soft:#2a2008; --ok:#3ee0a3; --ok-soft:#062a1f;
+  --font:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+:root[data-theme="dusk"]{
+  --bg:#1a1411; --dot:#3a2d24;
+  --bar:#120d0a; --bar-fg:#f5e9dc; --bar-muted:#9c8672; --bar-active:#2b2019; --bar-border:transparent;
+  --card:#231b15; --card-border:#3b2e25;
+  --card-shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.4);
+  --fg:#f3e7d9; --muted:#a58f7a; --line:#3b2e25;
+  --accent:#e9a24c; --accent-soft:#3a2a17; --ring:#e9a24c;
+  --amber:#e9a24c; --amber-soft:#3a2a17; --ok:#9ccb7a; --ok-soft:#24301a;
+  --font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",system-ui,sans-serif;
+}
+
+/* ---- base ------------------------------------------------------------ */
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);-webkit-font-smoothing:antialiased}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+
+/* ---- top bar --------------------------------------------------------- */
+.bar{position:sticky;top:0;z-index:1000;min-height:var(--bar-h);display:flex;align-items:center;gap:8px;
+  padding:env(safe-area-inset-top) 14px 0;background:var(--bar);color:var(--bar-fg);border-bottom:1px solid var(--bar-border)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;font-size:13px;margin-right:10px;flex:0 0 auto}
+.ring{width:14px;height:14px;border-radius:50%;border:2px solid var(--ring);animation:breathe 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.9);box-shadow:0 0 0 0 transparent}50%{transform:scale(1.05);box-shadow:0 0 10px 0 var(--ring)}}
+.tabs{display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:0;background:transparent;color:var(--bar-muted);font-size:15px;padding:8px 14px;border-radius:10px;cursor:pointer;transition:background .15s,color .15s}
+.tab:hover{color:var(--bar-fg)}
+.tab.active{background:var(--bar-active);color:var(--bar-fg);font-weight:600}
+.bar-right{display:flex;align-items:center;gap:4px;margin-left:auto;position:relative;flex:0 0 auto}
+.ghost{border:0;background:transparent;color:var(--bar-muted);font-size:13px;padding:6px 10px;border-radius:8px;cursor:pointer}
+.ghost:hover{color:var(--bar-fg);background:var(--bar-active)}
+.theme-btn{display:flex;align-items:center;gap:8px;border:1px solid var(--bar-active);background:transparent;color:var(--bar-fg);font-size:13px;padding:6px 12px 6px 8px;border-radius:999px;cursor:pointer}
+.swatch{width:12px;height:12px;border-radius:50%;background:var(--sw);border:1px solid rgba(255,255,255,.25);flex:0 0 auto}
+.pop{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border:1px solid var(--card-border);border-radius:12px;
+  box-shadow:var(--card-shadow);padding:6px;min-width:150px;color:var(--fg)}
+.pop[hidden]{display:none}
+.opt{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:inherit;font-size:14px;padding:8px 10px;border-radius:8px;cursor:pointer;text-align:left}
+.opt:hover{background:var(--accent-soft)}
+.opt.on{font-weight:600}
+.pop hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+@media (max-width:719px){ #themeName{display:none} .theme-btn{padding:6px 8px} }
+
+/* ---- canvas ---------------------------------------------------------- */
+.canvas{position:relative;min-height:calc(100vh - var(--bar-h));
+  background-image:radial-gradient(circle,var(--dot) 1px,transparent 1.5px);
+  background-size:var(--grid) var(--grid);background-position:calc(var(--grid)/2) calc(var(--grid)/2)}
+
+/* ---- cards ----------------------------------------------------------- */
+.card{position:absolute;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--card-border);
+  border-radius:var(--radius);box-shadow:var(--card-shadow);min-width:192px;min-height:120px;overflow:hidden;
+  transition:left .12s,top .12s,width .12s,height .12s}
+.card.dragging,.card.resizing{transition:none}
+.card.dragging{opacity:.94;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.card.resizing .body{pointer-events:none}
+.head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px 6px;font-weight:600;font-size:15px;
+  cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.head:active{cursor:grabbing}
+.head .meta{font-weight:400;font-size:12px;color:var(--muted);white-space:nowrap}
+.body{flex:1;overflow:auto;padding:2px 14px 18px;font-size:14px;line-height:1.5;color:var(--muted)}
+.body b{color:var(--fg);font-weight:600}
+.grip{position:absolute;right:0;bottom:0;width:30px;height:30px;cursor:nwse-resize;touch-action:none}
+.grip::after{content:"";position:absolute;right:8px;bottom:8px;width:13px;height:13px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);border-radius:0 0 4px 0;opacity:.55}
+.grip:hover::after{opacity:1}
+
+/* ---- card content bits ---------------------------------------------- */
+.row{display:flex;gap:10px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line)}
+.row:last-of-type{border-bottom:0}
+.row .t{font-variant-numeric:tabular-nums;color:var(--fg);min-width:46px;font-size:13px;flex:0 0 auto}
+.row .r{margin-left:auto;font-size:13px;white-space:nowrap}
+.chk{display:flex;gap:10px;align-items:center;padding:5px 0}
+.chk i{width:16px;height:16px;border:1.5px solid var(--muted);border-radius:5px;flex:0 0 auto}
+.chk.done i{background:var(--accent);border-color:var(--accent)}
+.chk.done>span:first-of-type{text-decoration:line-through;opacity:.6}
+.chk.plain.done>span:first-of-type{text-decoration:none;opacity:.7}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;margin-left:auto;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.amber{background:var(--amber-soft);color:var(--amber)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:10px;margin-top:6px}
+.stat b{display:block;font-size:22px;letter-spacing:-.01em}
+.stat small{font-size:12px}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:4px 0 10px}
+.prog i{display:block;height:100%;background:var(--accent)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:64px;margin-top:8px}
+.bars i{flex:1;background:var(--accent);opacity:.7;border-radius:3px 3px 0 0}
+.btn{display:block;width:fit-content;margin-top:10px;border:1px solid var(--card-border);background:var(--accent-soft);color:var(--fg);font-size:13px;padding:7px 12px;border-radius:9px;cursor:pointer}
+.note{outline:0;min-height:60px;white-space:pre-wrap;color:var(--fg)}
+.foot{margin-top:10px;font-size:12px;opacity:.8}
+.msg{padding:8px 10px;border-radius:10px;background:var(--accent-soft);margin:6px 0;color:var(--fg);font-size:13px}
+.msg.me{background:transparent;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand"><span class="ring"></span><span>IRIS</span></div>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <div class="bar-right">
+    <button class="theme-btn" id="themeBtn" aria-haspopup="menu"><span class="swatch" id="swatch"></span><span id="themeName">Light</span></button>
+    <div class="pop" id="pop" hidden role="menu"></div>
+  </div>
+</header>
+
+<main class="canvas" id="canvas"></main>
+
+<script>
+const GRID = 24, MINW = 192, MINH = 120;
+const TABS = [['today','Today'],['tracker','Tracker'],['coach','Coach'],['meals','Meals'],['health','Health']];
+const THEMES = { light:['Light','#f6f6f7'], dark:['Dark','#3a3a40'], iris:['Iris','#33d6e0'], dusk:['Dusk','#e9a24c'] };
+
+// --- tiny content helpers ---------------------------------------------
+const chk  = (t, done, pill, cls) => `<div class="chk${cls ? ' ' + cls : ''}${done ? ' done' : ''}"><i></i><span>${t}</span>${pill || ''}</div>`;
+const bars = a => `<div class="bars">${a.map(v => `<i style="height:${v}%"></i>`).join('')}</div>`;
+const prog = p => `<div class="prog"><i style="width:${p}%"></i></div>`;
+const row  = (t, s, r) => `<div class="row"><span class="t">${t}</span><span>${s}</span>${r ? `<span class="r">${r}</span>` : ''}</div>`;
+
+// --- card definitions (x, y, w, h in grid units) ----------------------
+const CARDS = {
+  today: [
+    { id:'sched', title:'Today', meta:'Sun 6 Sep', x:1, y:1, w:13, h:11, body:
+      row('09:30','Seminar prep for the ECE logbook') + row('13:00','Lunch with Arefeh') +
+      row('16:00','Iris: meals slice 2') + row('20:30','Evening debrief') +
+      `<div class="foot">Pulled at 7 AM from Calendar, Gmail and Slack.</div>` },
+    { id:'focus', title:'Focus', meta:'3 left', x:15, y:1, w:11, h:9, body:
+      chk('Hand off meals slice 2') + chk('Debug iOS Shortcut import') + chk('Reply to supervisor') + chk('First pass at principles.md', true) },
+    { id:'habits', title:'Habits', meta:'core stable', x:27, y:1, w:11, h:10, body:
+      chk('Steps', true, '<span class="pill ok">verified · Garmin</span>', 'plain') +
+      chk('Sleep', true, '<span class="pill ok">verified · Garmin</span>', 'plain') +
+      chk('Protein', false, '<span class="pill amber">142 g, confirm?</span>', 'plain') +
+      chk('Water', false, '<span class="pill amber">2.1 L, confirm?</span>', 'plain') +
+      chk('Read 20 min', false, '', 'plain') },
+    { id:'coach', title:'Coach', meta:'', x:15, y:11, w:11, h:7, body:
+      `<b>Open commitment</b><br>Ship meals slice 1 by Thursday.<button class="btn">Start session</button>` },
+    { id:'health', title:'Health', meta:'Garmin', x:1, y:13, w:13, h:6, body:
+      `<div class="stats"><div class="stat"><b>8,412</b><small>steps</small></div><div class="stat"><b>7h 12m</b><small>sleep</small></div><div class="stat"><b>—</b><small>body battery</small></div></div>` },
+    { id:'meals', title:'Meals', meta:'so far today', x:27, y:12, w:11, h:9, body:
+      `<b>Ali</b> 1,640 / 2,300 kcal${prog(71)}118 / 160 g protein${prog(74)}<b>Arefeh</b> 1,210 / 1,800 kcal${prog(67)}` },
+    { id:'notes', title:'Notes', meta:'', x:39, y:1, w:10, h:11, note:true, body:
+      `- theme ideas: dusk, paper\n- where does the ring live?\n- tracker is a today-list, not a backlog` },
+  ],
+  tracker: [
+    { id:'week', title:'This week', meta:'Mon to Sun', x:1, y:1, w:14, h:10, body:
+      row('Steps','●●●●●●○') + row('Sleep','●●●●●○○') + row('Protein','●●●○●●○') + row('Water','●●●●●●●') + row('Read','●○●●○○○') },
+    { id:'tasks', title:'Tasks', meta:'today', x:16, y:1, w:14, h:10, body:
+      chk('Hand off meals slice 2') + chk('Debug iOS Shortcut import') + chk('Bump CACHE_VERSION') + chk('Reply to supervisor') },
+    { id:'streak', title:'Streaks', meta:'', x:31, y:1, w:14, h:7, body:
+      `<div class="stats"><div class="stat"><b>12</b><small>days core stable</small></div><div class="stat"><b>1</b><small>repair available</small></div></div>` },
+  ],
+  coach: [
+    { id:'session', title:'Session', meta:'live', x:1, y:1, w:18, h:12, body:
+      `<div class="msg">What would make today a win, even if nothing else happens?</div><div class="msg me">Ship the handoff, then a real walk.</div><button class="btn">Reply by voice</button>` },
+    { id:'commit', title:'Commitments', meta:'', x:20, y:1, w:12, h:8, body:
+      chk('Ship meals slice 1 by Thursday') + chk('Walk without phone, 3×', true) + chk('Ask supervisor about dates') },
+    { id:'history', title:'Past sessions', meta:'', x:20, y:10, w:12, h:7, body:
+      row('Sat','Planning the week', '22 min') + row('Thu','Debrief', '9 min') + row('Tue','Stuck on shortcuts', '14 min') },
+  ],
+  meals: [
+    { id:'log', title:'Log', meta:'today', x:1, y:1, w:15, h:10, body:
+      row('08:10','Oats, berries, yogurt','420 kcal') + row('12:40','Chicken rice bowl','710 kcal') + row('16:05','Apple, almonds','230 kcal') +
+      `<div class="foot">Photo from the Shortcut, estimate saved, photo not kept.</div>` },
+    { id:'targets', title:'Targets', meta:'', x:17, y:1, w:12, h:8, body:
+      `<b>Ali</b> 2,300 kcal, 160 g protein${prog(71)}<b>Arefeh</b> 1,800 kcal, 110 g protein${prog(67)}` },
+    { id:'shop', title:'Shopping list', meta:'slice 2', x:30, y:1, w:12, h:9, body:
+      chk('Greek yogurt') + chk('Chicken thighs') + chk('Rice', true) + chk('Berries') + chk('Almonds') },
+  ],
+  health: [
+    { id:'sleep', title:'Sleep', meta:'last 7 nights', x:1, y:1, w:14, h:9, body:
+      `<div class="stat"><b>7h 12m</b><small>last night</small></div>${bars([70,85,60,90,75,95,80])}` },
+    { id:'steps', title:'Steps', meta:'last 7 days', x:16, y:1, w:14, h:9, body:
+      `<div class="stat"><b>8,412</b><small>today</small></div>${bars([55,80,95,40,70,85,60])}` },
+    { id:'battery', title:'Body battery', meta:'dormant', x:31, y:1, w:12, h:6, body:
+      `Fields are wired. Turns on once Garmin starts sending it.` },
+  ],
+};
+
+// --- state --------------------------------------------------------------
+const state = { theme:'light', tab:'today', layouts:{}, notes:{} };
+const bp   = () => (window.innerWidth < 720 ? 'm' : 'd');
+const key  = () => bp() + ':' + state.tab;
+let zTop = 1, lastBp = bp();
+
+const canvas = document.getElementById('canvas');
+const tabsEl = document.getElementById('tabs');
+const pop    = document.getElementById('pop');
+
+function defaults(tab) {
+  const list = CARDS[tab];
+  if (bp() === 'd') return list.map(c => ({ id:c.id, x:c.x*GRID, y:c.y*GRID, w:c.w*GRID, h:c.h*GRID }));
+  const w = Math.floor((window.innerWidth - GRID) / GRID) * GRID; let y = GRID / 2;
+  return list.map(c => { const o = { id:c.id, x:GRID/2, y, w, h:Math.max(MINH, Math.round(c.h*0.8)*GRID) }; y += o.h + GRID/2; return o; });
+}
+
+function render() {
+  document.documentElement.dataset.theme = state.theme;
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === state.tab));
+  document.getElementById('themeName').textContent = THEMES[state.theme][0];
+  document.getElementById('swatch').style.setProperty('--sw', THEMES[state.theme][1]);
+  document.querySelectorAll('.opt').forEach(o => o.classList.toggle('on', o.dataset.theme === state.theme));
+  canvas.innerHTML = '';
+  if (!state.layouts[key()]) state.layouts[key()] = defaults(state.tab);
+  for (const l of state.layouts[key()]) {
+    const def = CARDS[state.tab].find(c => c.id === l.id);
+    if (def) canvas.appendChild(makeCard(def, l));
+  }
+  fitCanvas();
+}
+
+function makeCard(def, l) {
+  const el = document.createElement('section');
+  el.className = 'card'; el.dataset.id = def.id;
+  Object.assign(el.style, { left:l.x+'px', top:l.y+'px', width:l.w+'px', height:l.h+'px' });
+  el.innerHTML = `<div class="head"><span>${def.title}</span><span class="meta">${def.meta || ''}</span></div><div class="body"></div><div class="grip" title="Resize"></div>`;
+  const body = el.querySelector('.body');
+  if (def.note) {
+    const n = document.createElement('div');
+    n.className = 'note'; n.contentEditable = 'true';
+    n.textContent = state.notes[def.id] ?? def.body;
+    n.addEventListener('input', () => { state.notes[def.id] = n.textContent; save(); });
+    body.appendChild(n);
+  } else body.innerHTML = def.body;
+  el.addEventListener('pointerdown', () => {
+    el.style.zIndex = ++zTop;
+    const arr = state.layouts[key()], i = arr.indexOf(l);
+    if (i > -1 && i !== arr.length - 1) { arr.splice(i, 1); arr.push(l); save(); }
+  });
+  bindDrag(el.querySelector('.head'), el, l, 'move');
+  bindDrag(el.querySelector('.grip'), el, l, 'size');
+  return el;
+}
+
+function bindDrag(handle, el, l, mode) {
+  let sx, sy, ox, oy, ow, oh, active = false;
+  handle.addEventListener('pointerdown', e => {
+    if (e.button && e.button !== 0) return;
+    if (e.target.closest('button')) return;
+    active = true; handle.setPointerCapture(e.pointerId);
+    sx = e.clientX; sy = e.clientY;
+    ox = el.offsetLeft; oy = el.offsetTop; ow = el.offsetWidth; oh = el.offsetHeight;
+    el.classList.add(mode === 'move' ? 'dragging' : 'resizing');
+    e.preventDefault();
+  });
+  handle.addEventListener('pointermove', e => {
+    if (!active) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (mode === 'move') { el.style.left = Math.max(0, ox + dx) + 'px'; el.style.top = Math.max(0, oy + dy) + 'px'; }
+    else { el.style.width = Math.max(MINW, ow + dx) + 'px'; el.style.height = Math.max(MINH, oh + dy) + 'px'; }
+  });
+  const end = () => {
+    if (!active) return;
+    active = false; el.classList.remove('dragging', 'resizing');
+    const snap = v => Math.round(v / GRID) * GRID;
+    l.x = snap(el.offsetLeft); l.y = snap(el.offsetTop);
+    l.w = Math.max(MINW, snap(el.offsetWidth)); l.h = Math.max(MINH, snap(el.offsetHeight));
+    Object.assign(el.style, { left:l.x+'px', top:l.y+'px', width:l.w+'px', height:l.h+'px' });
+    fitCanvas(); save();
+  };
+  handle.addEventListener('pointerup', end);
+  handle.addEventListener('pointercancel', end);
+}
+
+function fitCanvas() {
+  let mw = 0, mh = 0;
+  for (const l of state.layouts[key()] || []) { mw = Math.max(mw, l.x + l.w); mh = Math.max(mh, l.y + l.h); }
+  canvas.style.minWidth  = (mw + GRID * 2) + 'px';
+  canvas.style.minHeight = Math.max(window.innerHeight - 56, mh + GRID * 3) + 'px';
+}
+
+// --- persistence (artifact storage when available, memory otherwise) ----
+let saveT;
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(async () => {
+    try { if (window.storage) await window.storage.set('iris-proto:v1', JSON.stringify(state), false); } catch (e) {}
+  }, 250);
+}
+async function load() {
+  try {
+    if (!window.storage) return;
+    const r = await window.storage.get('iris-proto:v1', false);
+    if (r && r.value) Object.assign(state, JSON.parse(r.value));
+  } catch (e) {}
+}
+
+// --- chrome wiring ------------------------------------------------------
+tabsEl.innerHTML = TABS.map(([k, n]) => `<button class="tab" data-tab="${k}">${n}</button>`).join('');
+tabsEl.addEventListener('click', e => { const b = e.target.closest('.tab'); if (!b) return; state.tab = b.dataset.tab; render(); save(); });
+
+pop.innerHTML = Object.entries(THEMES).map(([k, [n, c]]) => `<button class="opt" role="menuitem" data-theme="${k}"><span class="swatch" style="--sw:${c}"></span>${n}</button>`).join('')
+  + `<hr><button class="opt" role="menuitem" id="reset">Reset this tab's layout</button>`;
+document.getElementById('themeBtn').addEventListener('click', e => { e.stopPropagation(); pop.hidden = !pop.hidden; });
+pop.addEventListener('click', e => {
+  const o = e.target.closest('.opt'); if (!o) return;
+  if (o.id === 'reset') delete state.layouts[key()]; else state.theme = o.dataset.theme;
+  pop.hidden = true; render(); save();
+});
+document.addEventListener('click', () => { pop.hidden = true; });
+
+window.addEventListener('resize', () => { if (bp() !== lastBp) { lastBp = bp(); render(); } else fitCanvas(); });
+
+load().then(render);
+</script>
+</body>
+</html>

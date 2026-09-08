@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Ali Soltaninezhad — Computer Vision & Action Detection Researcher</title>
   <meta name="description" content="Ali Soltaninezhad is a PhD candidate at the University of Victoria building lightweight computer vision for video — spatio-temporal action detection, video understanding, and deployable AI that works in the real world." />
   <meta name="author" content="Ali Soltaninezhad" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="keywords" content="Ali Soltaninezhad, computer vision, spatio-temporal action detection, video understanding, action recognition, deep learning, deployable AI, University of Victoria, PhD, FishVue" />
+  <meta name="keywords" content="Ali Soltaninezhad, computer vision, spatio-temporal action detection, video understanding, action recognition, deep learning, deployable AI, University of Victoria, PhD, FishVue, ECCVW, Marine Vision Workshop, ECCV" />
   <link rel="canonical" href="https://alisoltani7596.github.io/" />
 
   <!-- Open Graph / Twitter -->
@@ -22,17 +22,22 @@
   <meta name="twitter:title" content="Ali Soltaninezhad — Computer Vision & Action Detection Researcher" />
   <meta name="twitter:description" content="PhD candidate at UVic. Lightweight action detection, video understanding, and deployable AI that works in the real world." />
   <meta name="twitter:image" content="https://alisoltani7596.github.io/assets/img/oooo.plus_3.png" />
-  <meta name="theme-color" content="#0a0a0b" />
+  <meta name="theme-color" content="#ffffff" />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260908f" />
 
-  <!-- Fonts: Geist + Geist Mono (preconnect + swap) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" />
-
-  <link rel="stylesheet" href="assets/css/custom.css" />
+  <!-- Apply a stored theme before first paint; mark JS as available -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.className += " js";
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
@@ -60,7 +65,7 @@
     "sameAs": [
       "https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en",
       "https://github.com/alisoltani7596",
-      "https://www.linkedin.com/in/ali-soltaninezhad-7232b41b3/",
+      "https://www.linkedin.com/in/alisoltaninezhad",
       "https://www.researchgate.net/profile/Ali-Soltani-Nezhad-2"
     ]
   }
@@ -69,242 +74,538 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Nav -->
-  <header id="nav" class="nav">
+  <!-- Nav: flush at the top, frosted once content scrolls beneath it -->
+  <header id="nav" class="nav" data-chapter="normal">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo" aria-label="Home">
-        <img class="nav-logo-img" src="assets/img/profile.jpg" alt="Ali Soltaninezhad" width="34" height="34" onload="this.classList.add('is-ready')" />
-        <span class="nav-logo-text">AS<span class="dot">.</span></span>
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#about">About</a>
+      <a href="#hero" class="nav-brand">Ali Soltaninezhad</a>
+      <nav id="nav-links" class="nav-links" aria-label="Primary">
         <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
         <a href="#teaching">Teaching</a>
-        <a href="#honors">Honors</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
-        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <button id="nav-burger" class="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="nav-btn theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button id="nav-burger" class="nav-btn nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+      </div>
     </div>
   </header>
+  <div id="nav-scrim" class="nav-scrim" aria-hidden="true"></div>
 
   <main id="main">
 
-    <!-- Hero -->
-    <section id="hero" class="hero">
-      <div class="container hero-content reveal">
-        <p class="hero-eyebrow">Computer Vision · PhD Candidate</p>
-        <h1 class="hero-name">Ali Soltaninezhad</h1>
-        <p class="hero-role">
-          I build machine perception that works <span class="rotator" aria-live="polite"><span class="rotator-word">in the real world</span></span>.
-        </p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="#projects">View Research</a>
-          <a class="btn" href="assets/cv/Ali_Soltaninezhad_CV.pdf" download>Download CV</a>
-          <a class="btn" href="mailto:alisoltaninezhad@uvic.ca">Email</a>
-        </div>
-        <ul class="social-row" aria-label="Social profiles">
-          <li><a href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar">Scholar</a></li>
-          <li><a href="https://github.com/alisoltani7596" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/ali-soltaninezhad-7232b41b3/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a></li>
-          <li><a href="https://www.researchgate.net/profile/Ali-Soltani-Nezhad-2" target="_blank" rel="noopener" aria-label="ResearchGate">ResearchGate</a></li>
-        </ul>
-      </div>
-      <a href="#about" class="scroll-cue" aria-label="Scroll to about"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section">
-      <div class="container about-grid">
-        <div class="reveal">
-          <h2 class="section-title" data-text="About">About</h2>
-          <div class="prose">
-            <p>I'm a PhD candidate in Electrical and Computer Engineering at the <a href="https://www.uvic.ca/" target="_blank" rel="noopener">University of Victoria</a>, in <a href="https://www.branzanalbu.com/" target="_blank" rel="noopener">Dr. Alexandra Branzan Albu</a>'s Computer Vision Lab. I teach machines to read what people are doing in video — fast enough and light enough to run outside a research cluster. In practice that means spatio-temporal action detection, motion-aware video understanding, privacy-preserving perception, and models built to hold up in the wild.</p>
-            <p>The work has left the lab. It's first-author at ICPR 2026 and CRV 2025, and it powers <a href="https://www.archipelago.ca/" target="_blank" rel="noopener">Archipelago Marine Research</a>'s FishVue platform — which took the <a href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener">2026 VIATEC Innovative Excellence Award</a>. I teach, too: I'm the instructor for UVic's Medical Image Processing course (ECE 435 / BME 403) this winter, on a $10,000 President's Fellowship in Research-Enriched Teaching.</p>
-            <p>What I care about is computer vision that survives the messy parts — the open sea, bad light, occlusion, motion blur — not just a clean benchmark. If that sounds like your problem too, let's talk.</p>
+    <!-- Hero: name, one claim, two actions, and the real thing the models see -->
+    <section id="hero" class="hero sec-a" data-chapter="normal">
+      <div id="nav-sentinel" class="nav-sentinel" aria-hidden="true"></div>
+      <div class="hero-scene">
+        <div class="hero-copy">
+          <a class="hero-news" href="#publications"><span>New</span>Oral at ECCVW 2026</a>
+          <p class="hero-eyebrow">PhD candidate · University of Victoria</p>
+          <h1 class="hero-name">Ali Soltaninezhad</h1>
+          <p class="hero-tagline">Computer vision that works in the real world.</p>
+          <div class="hero-ctas">
+            <a class="btn" href="#projects">See the research</a>
+            <a class="link link--lg" href="assets/cv/Ali_Soltaninezhad_CV.pdf" download>Download CV</a>
           </div>
         </div>
-        <aside class="quick-facts reveal" aria-label="Quick facts">
-          <h3>Quick facts</h3>
-          <ul>
-            <li><span>PhD</span> University of Victoria</li>
-            <li><span>Supervisor</span> Dr. Alexandra Branzan Albu</li>
-            <li><span>Based in</span> Victoria, BC</li>
-            <li><span>GPA</span> 9.0 / 9.0</li>
-            <li><span>First author</span> ICPR 2026 · CRV 2025</li>
-          </ul>
-        </aside>
+        <div class="hero-media">
+          <div class="hero-float">
+            <figure class="hero-figure">
+              <!-- Routing: everything the model saw, and the few predictions sent to a person -->
+              <svg class="route-figure" viewBox="0 0 1000 420" role="img"
+                   aria-label="A field of small dots stands for everything a model looked at. A few are picked out and threaded to a short column on the right, the handful a person actually reviews.">
+                <defs>
+                  <radialGradient id="rt-glow-grad">
+                    <stop class="rt-glow-in" offset="0" />
+                    <stop class="rt-glow-out" offset="1" />
+                  </radialGradient>
+                </defs>
+                <ellipse class="rt-glow" cx="905" cy="205" rx="150" ry="185" />
+                <g class="rt-threads">
+                  <path class="rt-thread" style="animation-delay:0.95s" pathLength="1" d="M121 283 C309 283 638 222 894 222" />
+                  <path class="rt-thread" style="animation-delay:1.02s" pathLength="1" d="M220 128 C384 128 672 154 894 154" />
+                  <path class="rt-thread" style="animation-delay:1.09s" pathLength="1" d="M319 314 C460 314 706 290 894 290" />
+                  <path class="rt-thread" style="animation-delay:1.16s" pathLength="1" d="M418 190 C535 190 739 188 894 188" />
+                  <path class="rt-thread" style="animation-delay:1.23s" pathLength="1" d="M517 97 C610 97 773 120 894 120" />
+                  <path class="rt-thread" style="animation-delay:1.30s" pathLength="1" d="M616 252 C685 252 807 256 894 256" />
+                </g>
+                <g class="rt-field">
+                  <circle cx="44" cy="66" r="3.2" />
+                  <circle cx="77" cy="66" r="3.2" />
+                  <circle cx="110" cy="66" r="3.2" />
+                  <circle cx="143" cy="66" r="3.2" />
+                  <circle cx="176" cy="66" r="3.2" />
+                  <circle cx="209" cy="66" r="3.2" />
+                  <circle cx="242" cy="66" r="3.2" />
+                  <circle cx="275" cy="66" r="3.2" />
+                  <circle cx="308" cy="66" r="3.2" />
+                  <circle cx="341" cy="66" r="3.2" />
+                  <circle cx="374" cy="66" r="3.2" />
+                  <circle cx="407" cy="66" r="3.2" />
+                  <circle cx="440" cy="66" r="3.2" />
+                  <circle cx="473" cy="66" r="3.2" />
+                  <circle cx="506" cy="66" r="3.2" />
+                  <circle cx="539" cy="66" r="3.2" />
+                  <circle cx="572" cy="66" r="3.2" />
+                  <circle cx="605" cy="66" r="3.2" />
+                  <circle cx="638" cy="66" r="3.2" />
+                  <circle cx="671" cy="66" r="3.2" />
+                  <circle cx="44" cy="97" r="3.2" />
+                  <circle cx="77" cy="97" r="3.2" />
+                  <circle cx="110" cy="97" r="3.2" />
+                  <circle cx="143" cy="97" r="3.2" />
+                  <circle cx="176" cy="97" r="3.2" />
+                  <circle cx="209" cy="97" r="3.2" />
+                  <circle cx="242" cy="97" r="3.2" />
+                  <circle cx="275" cy="97" r="3.2" />
+                  <circle cx="308" cy="97" r="3.2" />
+                  <circle cx="341" cy="97" r="3.2" />
+                  <circle cx="374" cy="97" r="3.2" />
+                  <circle cx="407" cy="97" r="3.2" />
+                  <circle cx="440" cy="97" r="3.2" />
+                  <circle cx="473" cy="97" r="3.2" />
+                  <circle cx="539" cy="97" r="3.2" />
+                  <circle cx="572" cy="97" r="3.2" />
+                  <circle cx="605" cy="97" r="3.2" />
+                  <circle cx="638" cy="97" r="3.2" />
+                  <circle cx="671" cy="97" r="3.2" />
+                  <circle cx="44" cy="128" r="3.2" />
+                  <circle cx="77" cy="128" r="3.2" />
+                  <circle cx="110" cy="128" r="3.2" />
+                  <circle cx="143" cy="128" r="3.2" />
+                  <circle cx="176" cy="128" r="3.2" />
+                  <circle cx="242" cy="128" r="3.2" />
+                  <circle cx="275" cy="128" r="3.2" />
+                  <circle cx="308" cy="128" r="3.2" />
+                  <circle cx="341" cy="128" r="3.2" />
+                  <circle cx="374" cy="128" r="3.2" />
+                  <circle cx="407" cy="128" r="3.2" />
+                  <circle cx="440" cy="128" r="3.2" />
+                  <circle cx="473" cy="128" r="3.2" />
+                  <circle cx="506" cy="128" r="3.2" />
+                  <circle cx="539" cy="128" r="3.2" />
+                  <circle cx="572" cy="128" r="3.2" />
+                  <circle cx="605" cy="128" r="3.2" />
+                  <circle cx="638" cy="128" r="3.2" />
+                  <circle cx="671" cy="128" r="3.2" />
+                  <circle cx="44" cy="159" r="3.2" />
+                  <circle cx="77" cy="159" r="3.2" />
+                  <circle cx="110" cy="159" r="3.2" />
+                  <circle cx="143" cy="159" r="3.2" />
+                  <circle cx="176" cy="159" r="3.2" />
+                  <circle cx="209" cy="159" r="3.2" />
+                  <circle cx="242" cy="159" r="3.2" />
+                  <circle cx="275" cy="159" r="3.2" />
+                  <circle cx="308" cy="159" r="3.2" />
+                  <circle cx="341" cy="159" r="3.2" />
+                  <circle cx="374" cy="159" r="3.2" />
+                  <circle cx="407" cy="159" r="3.2" />
+                  <circle cx="440" cy="159" r="3.2" />
+                  <circle cx="473" cy="159" r="3.2" />
+                  <circle cx="506" cy="159" r="3.2" />
+                  <circle cx="539" cy="159" r="3.2" />
+                  <circle cx="572" cy="159" r="3.2" />
+                  <circle cx="605" cy="159" r="3.2" />
+                  <circle cx="638" cy="159" r="3.2" />
+                  <circle cx="671" cy="159" r="3.2" />
+                  <circle cx="44" cy="190" r="3.2" />
+                  <circle cx="77" cy="190" r="3.2" />
+                  <circle cx="110" cy="190" r="3.2" />
+                  <circle cx="143" cy="190" r="3.2" />
+                  <circle cx="176" cy="190" r="3.2" />
+                  <circle cx="209" cy="190" r="3.2" />
+                  <circle cx="242" cy="190" r="3.2" />
+                  <circle cx="275" cy="190" r="3.2" />
+                  <circle cx="308" cy="190" r="3.2" />
+                  <circle cx="341" cy="190" r="3.2" />
+                  <circle cx="374" cy="190" r="3.2" />
+                  <circle cx="440" cy="190" r="3.2" />
+                  <circle cx="473" cy="190" r="3.2" />
+                  <circle cx="506" cy="190" r="3.2" />
+                  <circle cx="539" cy="190" r="3.2" />
+                  <circle cx="572" cy="190" r="3.2" />
+                  <circle cx="605" cy="190" r="3.2" />
+                  <circle cx="638" cy="190" r="3.2" />
+                  <circle cx="671" cy="190" r="3.2" />
+                  <circle cx="44" cy="221" r="3.2" />
+                  <circle cx="77" cy="221" r="3.2" />
+                  <circle cx="110" cy="221" r="3.2" />
+                  <circle cx="143" cy="221" r="3.2" />
+                  <circle cx="176" cy="221" r="3.2" />
+                  <circle cx="209" cy="221" r="3.2" />
+                  <circle cx="242" cy="221" r="3.2" />
+                  <circle cx="275" cy="221" r="3.2" />
+                  <circle cx="308" cy="221" r="3.2" />
+                  <circle cx="341" cy="221" r="3.2" />
+                  <circle cx="374" cy="221" r="3.2" />
+                  <circle cx="407" cy="221" r="3.2" />
+                  <circle cx="440" cy="221" r="3.2" />
+                  <circle cx="473" cy="221" r="3.2" />
+                  <circle cx="506" cy="221" r="3.2" />
+                  <circle cx="539" cy="221" r="3.2" />
+                  <circle cx="572" cy="221" r="3.2" />
+                  <circle cx="605" cy="221" r="3.2" />
+                  <circle cx="638" cy="221" r="3.2" />
+                  <circle cx="671" cy="221" r="3.2" />
+                  <circle cx="44" cy="252" r="3.2" />
+                  <circle cx="77" cy="252" r="3.2" />
+                  <circle cx="110" cy="252" r="3.2" />
+                  <circle cx="143" cy="252" r="3.2" />
+                  <circle cx="176" cy="252" r="3.2" />
+                  <circle cx="209" cy="252" r="3.2" />
+                  <circle cx="242" cy="252" r="3.2" />
+                  <circle cx="275" cy="252" r="3.2" />
+                  <circle cx="308" cy="252" r="3.2" />
+                  <circle cx="341" cy="252" r="3.2" />
+                  <circle cx="374" cy="252" r="3.2" />
+                  <circle cx="407" cy="252" r="3.2" />
+                  <circle cx="440" cy="252" r="3.2" />
+                  <circle cx="473" cy="252" r="3.2" />
+                  <circle cx="506" cy="252" r="3.2" />
+                  <circle cx="539" cy="252" r="3.2" />
+                  <circle cx="572" cy="252" r="3.2" />
+                  <circle cx="638" cy="252" r="3.2" />
+                  <circle cx="671" cy="252" r="3.2" />
+                  <circle cx="44" cy="283" r="3.2" />
+                  <circle cx="77" cy="283" r="3.2" />
+                  <circle cx="143" cy="283" r="3.2" />
+                  <circle cx="176" cy="283" r="3.2" />
+                  <circle cx="209" cy="283" r="3.2" />
+                  <circle cx="242" cy="283" r="3.2" />
+                  <circle cx="275" cy="283" r="3.2" />
+                  <circle cx="308" cy="283" r="3.2" />
+                  <circle cx="341" cy="283" r="3.2" />
+                  <circle cx="374" cy="283" r="3.2" />
+                  <circle cx="407" cy="283" r="3.2" />
+                  <circle cx="440" cy="283" r="3.2" />
+                  <circle cx="473" cy="283" r="3.2" />
+                  <circle cx="506" cy="283" r="3.2" />
+                  <circle cx="539" cy="283" r="3.2" />
+                  <circle cx="572" cy="283" r="3.2" />
+                  <circle cx="605" cy="283" r="3.2" />
+                  <circle cx="638" cy="283" r="3.2" />
+                  <circle cx="671" cy="283" r="3.2" />
+                  <circle cx="44" cy="314" r="3.2" />
+                  <circle cx="77" cy="314" r="3.2" />
+                  <circle cx="110" cy="314" r="3.2" />
+                  <circle cx="143" cy="314" r="3.2" />
+                  <circle cx="176" cy="314" r="3.2" />
+                  <circle cx="209" cy="314" r="3.2" />
+                  <circle cx="242" cy="314" r="3.2" />
+                  <circle cx="275" cy="314" r="3.2" />
+                  <circle cx="341" cy="314" r="3.2" />
+                  <circle cx="374" cy="314" r="3.2" />
+                  <circle cx="407" cy="314" r="3.2" />
+                  <circle cx="440" cy="314" r="3.2" />
+                  <circle cx="473" cy="314" r="3.2" />
+                  <circle cx="506" cy="314" r="3.2" />
+                  <circle cx="539" cy="314" r="3.2" />
+                  <circle cx="572" cy="314" r="3.2" />
+                  <circle cx="605" cy="314" r="3.2" />
+                  <circle cx="638" cy="314" r="3.2" />
+                  <circle cx="671" cy="314" r="3.2" />
+                  <circle cx="44" cy="345" r="3.2" />
+                  <circle cx="77" cy="345" r="3.2" />
+                  <circle cx="110" cy="345" r="3.2" />
+                  <circle cx="143" cy="345" r="3.2" />
+                  <circle cx="176" cy="345" r="3.2" />
+                  <circle cx="209" cy="345" r="3.2" />
+                  <circle cx="242" cy="345" r="3.2" />
+                  <circle cx="275" cy="345" r="3.2" />
+                  <circle cx="308" cy="345" r="3.2" />
+                  <circle cx="341" cy="345" r="3.2" />
+                  <circle cx="374" cy="345" r="3.2" />
+                  <circle cx="407" cy="345" r="3.2" />
+                  <circle cx="440" cy="345" r="3.2" />
+                  <circle cx="473" cy="345" r="3.2" />
+                  <circle cx="506" cy="345" r="3.2" />
+                  <circle cx="539" cy="345" r="3.2" />
+                  <circle cx="572" cy="345" r="3.2" />
+                  <circle cx="605" cy="345" r="3.2" />
+                  <circle cx="638" cy="345" r="3.2" />
+                  <circle cx="671" cy="345" r="3.2" />
+                </g>
+                <g class="rt-hits">
+                  <g class="rt-hit" style="animation-delay:0.55s"><circle class="rt-ring" cx="110" cy="283" r="10" /><circle class="rt-dot" cx="110" cy="283" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.61s"><circle class="rt-ring" cx="209" cy="128" r="10" /><circle class="rt-dot" cx="209" cy="128" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.67s"><circle class="rt-ring" cx="308" cy="314" r="10" /><circle class="rt-dot" cx="308" cy="314" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.73s"><circle class="rt-ring" cx="407" cy="190" r="10" /><circle class="rt-dot" cx="407" cy="190" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.79s"><circle class="rt-ring" cx="506" cy="97" r="10" /><circle class="rt-dot" cx="506" cy="97" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.85s"><circle class="rt-ring" cx="605" cy="252" r="10" /><circle class="rt-dot" cx="605" cy="252" r="4.6" /></g>
+                </g>
+                <g class="rt-queue">
+                  <g class="rt-slot" style="animation-delay:1.53s"><circle class="rt-ring" cx="905" cy="222" r="11" /><circle class="rt-dot" cx="905" cy="222" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.41s"><circle class="rt-ring" cx="905" cy="154" r="11" /><circle class="rt-dot" cx="905" cy="154" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.65s"><circle class="rt-ring" cx="905" cy="290" r="11" /><circle class="rt-dot" cx="905" cy="290" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.47s"><circle class="rt-ring" cx="905" cy="188" r="11" /><circle class="rt-dot" cx="905" cy="188" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.35s"><circle class="rt-ring" cx="905" cy="120" r="11" /><circle class="rt-dot" cx="905" cy="120" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.59s"><circle class="rt-ring" cx="905" cy="256" r="11" /><circle class="rt-dot" cx="905" cy="256" r="5.2" /></g>
+                </g>
+              </svg>
+            </figure>
+          </div>
+          <p class="hero-caption">Everything a model sees, and the small part worth a person’s attention.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Research interests -->
-    <section id="research" class="section">
+    <!-- Research highlights -->
+    <section id="research" class="sec sec-b" data-chapter="normal">
       <div class="container">
-        <h2 class="section-title reveal" data-text="Research Interests">Research Interests</h2>
-        <div class="cards-grid">
-          <article class="tilt-card reveal">
-            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-            <h3>Spatio-Temporal Action Detection</h3>
-            <p>Localizing who does what, when — efficiently, across long videos.</p>
+        <header class="sec-head reveal">
+          <p class="eyebrow">Research</p>
+          <h2 class="sec-title">Perception that holds up outside the lab.</h2>
+          <p class="sec-lede">Five threads, one goal: video models that are fast enough, light enough, and robust enough to leave the cluster.</p>
+        </header>
+        <div class="bento">
+          <article class="tile reveal">
+            <h3>Spatio-temporal action detection</h3>
+            <p>Localizing who does what, and when, efficiently across long videos.</p>
           </article>
-          <article class="tilt-card reveal">
-            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div>
-            <h3>Video Understanding</h3>
+          <article class="tile reveal">
+            <h3>Video understanding</h3>
             <p>Motion-aware models that reason about events, not just frames.</p>
           </article>
-          <article class="tilt-card reveal">
-            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-            <h3>Privacy-Preserving Perception</h3>
-            <p>Recognizing actions while protecting the identity of people in frame.</p>
+          <article class="tile reveal">
+            <h3>Privacy-preserving perception</h3>
+            <p>Recognizing actions while protecting the identity of the people in frame.</p>
           </article>
-          <article class="tilt-card reveal">
-            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 8c2.5-2.4 4.5-2.4 7 0s4.5 2.4 7 0 4.5-2.4 6 0"/><path d="M2 15c2.5-2.4 4.5-2.4 7 0s4.5 2.4 7 0 4.5-2.4 6 0"/></svg></div>
-            <h3>Environmental Monitoring AI</h3>
+          <article class="tile reveal">
+            <h3>Environmental monitoring AI</h3>
             <p>Deployable perception for maritime and ecological monitoring.</p>
           </article>
-          <article class="tilt-card reveal">
-            <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 13 2-7h6"/></svg></div>
-            <h3>Medical Image Processing</h3>
+          <article class="tile reveal">
+            <h3>Medical image processing</h3>
             <p>Robust analysis pipelines for clinical and biomedical imaging.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Publications -->
-    <section id="publications" class="section">
-      <div class="container">
-        <h2 class="section-title reveal" data-text="Publications">Publications</h2>
-        <div class="pub-controls reveal" role="group" aria-label="Filter publications">
-          <div class="pub-filters" id="pub-type-filters">
-            <button class="chip active" data-type="all">All</button>
-            <button class="chip" data-type="Journal">Journal</button>
-            <button class="chip" data-type="Conference">Conference</button>
+    <!-- About -->
+    <section id="about" class="sec sec-a" data-chapter="normal">
+      <div class="container about">
+        <div class="reveal">
+          <header class="sec-head sec-head--left">
+            <p class="eyebrow">About</p>
+            <h2 class="sec-title">Machine perception that survives the messy parts.</h2>
+          </header>
+          <div class="prose">
+            <p>I'm a PhD candidate in Electrical and Computer Engineering at the <a href="https://www.uvic.ca/" target="_blank" rel="noopener">University of Victoria</a>, in <a href="https://www.branzanalbu.com/" target="_blank" rel="noopener">Dr. Alexandra Branzan Albu</a>'s Computer Vision Lab. I teach machines to read what people are doing in video, fast enough and light enough to run outside a research cluster. In practice that means spatio-temporal action detection, motion-aware video understanding, privacy-preserving perception, and models built to hold up in the wild.</p>
+            <p>The work has left the lab. Three first-author papers, all of them oral presentations: ECCVW 2026 (the 2nd Marine Vision Workshop at ECCV), ICPR 2026 and CRV 2025. It also powers <a href="https://www.archipelago.ca/" target="_blank" rel="noopener">Archipelago Marine Research</a>'s FishVue platform, which took the <a href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener">2026 VIATEC Innovative Excellence Award</a>. I teach, too: I'm the instructor for UVic's Medical Image Processing course (ECE 435 / BME 403) this winter, on a $10,000 President's Fellowship in Research-Enriched Teaching.</p>
+            <p>What I care about is computer vision that survives the messy parts: the open sea, bad light, occlusion, motion blur. Not just a clean benchmark. If that sounds like your problem too, let's talk.</p>
           </div>
-          <select id="pub-year-filter" class="pub-year" aria-label="Filter by year">
-            <option value="all">All years</option>
-          </select>
         </div>
-        <ol id="publications-list" class="pub-list">
-          <li class="loading">Loading publications…</li>
-        </ol>
-        <noscript><p class="prose">Publication list requires JavaScript. See <a href="data/publications.json">publications.json</a>.</p></noscript>
+        <aside class="reveal" aria-label="At a glance">
+          <div class="facts-head">
+            <img class="facts-avatar" src="assets/img/oooo.plus_3.png" alt="" width="56" height="56" loading="lazy" />
+            <div><strong>Ali Soltaninezhad</strong><span>Victoria, BC, Canada</span></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Program</dt><dd>PhD, Electrical &amp; Computer Engineering</dd></div>
+            <div><dt>University</dt><dd>University of Victoria</dd></div>
+            <div><dt>Supervisor</dt><dd>Dr. Alexandra Branzan Albu</dd></div>
+            <div><dt>GPA</dt><dd>9.0 / 9.0</dd></div>
+            <div><dt>First author</dt><dd>ECCVW 2026 · ICPR 2026 · CRV 2025, all oral</dd></div>
+          </dl>
+        </aside>
       </div>
     </section>
 
     <!-- Selected projects -->
-    <section id="projects" class="section">
+    <section id="projects" class="sec sec-b" data-chapter="normal">
       <div class="container">
-        <h2 class="section-title reveal" data-text="Selected Projects">Selected Projects</h2>
-        <div id="projects-grid" class="projects-grid">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Selected projects</p>
+          <h2 class="sec-title">Built to run where it's hard.</h2>
+          <p class="sec-lede">From reviewer guidance to lightweight action detection and privacy on working vessels.</p>
+        </header>
+        <div id="projects-grid" class="cards">
           <p class="loading">Loading projects…</p>
         </div>
-        <noscript><p class="prose">Project details require JavaScript. See <a href="data/projects.json">projects.json</a>.</p></noscript>
+        <noscript><p class="loading">Project details require JavaScript. See <a href="data/projects.json">projects.json</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="sec sec-a" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Publications</p>
+          <h2 class="sec-title">First-author at ECCVW, ICPR and CRV.</h2>
+          <p class="sec-lede">Peer-reviewed work on action detection, at-sea monitoring, and video understanding. The three first-author papers were all oral presentations.</p>
+        </header>
+        <div class="pub-controls reveal">
+          <div class="seg" id="pub-type-filters" role="group" aria-label="Publication type">
+            <button type="button" class="is-active" data-type="all" aria-pressed="true">All</button>
+            <button type="button" data-type="Journal" aria-pressed="false">Journal</button>
+            <button type="button" data-type="Conference" aria-pressed="false">Conference</button>
+          </div>
+          <label>
+            <span class="visually-hidden">Filter by year</span>
+            <select id="pub-year-filter" class="select">
+              <option value="all">All years</option>
+            </select>
+          </label>
+        </div>
+        <ol id="publications-list" class="panel pub-list reveal">
+          <li class="pub-empty">Loading publications…</li>
+        </ol>
+        <noscript><p class="loading">The publication list requires JavaScript. See <a href="data/publications.json">publications.json</a>.</p></noscript>
       </div>
     </section>
 
     <!-- Teaching -->
-    <section id="teaching" class="section">
+    <section id="teaching" class="sec sec-b" data-chapter="normal">
       <div class="container">
-        <h2 class="section-title reveal" data-text="Teaching">Teaching</h2>
-        <ul class="timeline">
-          <li class="timeline-item reveal">
-            <details open>
-              <summary><span class="tl-when">Jan–Apr 2026</span> Course Instructor</summary>
-              <p>ECE 435 / BME 403 – Medical Image Processing, University of Victoria.</p>
-            </details>
-          </li>
-          <li class="timeline-item reveal">
-            <details>
-              <summary><span class="tl-when">2024–2026</span> Super Teaching Assistant</summary>
-              <p>ECE 471 – Computer Vision (2024) · ECE 527 – Applied Data Analysis (2025).</p>
-            </details>
-          </li>
-          <li class="timeline-item reveal">
-            <details>
-              <summary><span class="tl-when">2023–2026</span> Lab Instructor / Teaching Assistant</summary>
-              <p>University of Victoria. Courses: Control Systems, Digital Design, VLSI Systems, Electronic Circuits, Signals &amp; Systems.</p>
-            </details>
-          </li>
-        </ul>
+        <header class="sec-head reveal">
+          <p class="eyebrow">Teaching</p>
+          <h2 class="sec-title">Instructor for Medical Image Processing at UVic.</h2>
+        </header>
+        <div class="panel rows reveal">
+          <div class="row">
+            <p class="row-when">Jan – Apr 2026</p>
+            <div>
+              <h3>Course instructor</h3>
+              <p>ECE 435 / BME 403, Medical Image Processing. University of Victoria.</p>
+            </div>
+          </div>
+          <div class="row">
+            <p class="row-when">2024 – 2026</p>
+            <div>
+              <h3>Super teaching assistant</h3>
+              <p>ECE 471, Computer Vision (2024) · ECE 527, Applied Data Analysis (2025).</p>
+            </div>
+          </div>
+          <div class="row">
+            <p class="row-when">2023 – 2026</p>
+            <div>
+              <h3>Lab instructor and teaching assistant</h3>
+              <p>Control Systems, Digital Design, VLSI Systems, Electronic Circuits, Signals &amp; Systems. University of Victoria.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Honors & awards -->
-    <section id="honors" class="section">
+    <!-- Honors -->
+    <section id="honors" class="sec sec-a" data-chapter="normal">
       <div class="container">
-        <h2 class="section-title reveal" data-text="Honors &amp; Awards">Honors &amp; Awards</h2>
-        <div class="honors-grid">
-          <article class="honor-card reveal">
-            <div class="honor-big">$10K</div>
+        <header class="sec-head reveal">
+          <p class="eyebrow">Honors &amp; awards</p>
+          <h2 class="sec-title">Three numbers that mattered.</h2>
+        </header>
+        <div class="stats">
+          <div class="stat reveal">
+            <p class="stat-num">$10K</p>
             <h3>President's Fellowship</h3>
             <p>Research-Enriched Teaching, 2025.</p>
-          </article>
-          <article class="honor-card reveal">
-            <div class="honor-big">Top 1%</div>
-            <h3>National BSc Entrance Exam</h3>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">Top 1%</p>
+            <h3>National BSc entrance exam</h3>
             <p>Ranked in the top 1% nationally.</p>
-          </article>
-          <article class="honor-card reveal">
-            <div class="honor-big">Top 3%</div>
-            <h3>National MSc Entrance Exam</h3>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">Top 3%</p>
+            <h3>National MSc entrance exam</h3>
             <p>Ranked in the top 3% nationally.</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Industry impact -->
-    <section id="industry" class="section">
+    <!-- Industry impact: the one inverted chapter -->
+    <section id="industry" class="sec sec-invert chapter" data-chapter="invert">
       <div class="container">
-        <div class="industry-callout reveal">
-          <div class="viatec-badge">VIATEC 2026</div>
-          <h2>Industry impact — FishVue</h2>
-          <p>My research feeds <a href="https://www.archipelago.ca/" target="_blank" rel="noopener"><strong>Archipelago Marine Research's FishVue</strong></a> — the platform that automates catch and compliance monitoring on commercial fishing vessels. It helped FishVue win the <a href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener"><strong>2026 VIATEC Innovative Excellence Award</strong></a> — computer vision running at sea, in real conditions, not on a benchmark.</p>
+        <header class="sec-head reveal">
+          <p class="eyebrow">Industry impact</p>
+          <h2 class="sec-title">Running at sea. Not on a benchmark.</h2>
+          <p class="chapter-body">My research feeds <a href="https://www.archipelago.ca/" target="_blank" rel="noopener">Archipelago Marine Research</a>'s FishVue, the platform that automates catch and compliance monitoring on commercial fishing vessels. It helped FishVue win the 2026 VIATEC Innovative Excellence Award.</p>
+          <a class="link link--lg" href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener">Read about the award</a>
+        </header>
+        <div class="reveal">
+          <figure class="chapter-media" data-parallax>
+            <img src="assets/img/fishvue-deck.jpg" alt="Four deck-camera views from fishing vessels with traps detected, tracked and counted" width="1800" height="1024" loading="lazy" decoding="async" />
+          </figure>
         </div>
+        <p class="chapter-caption">TrapCounter output on deck cameras: detection, tracking and optical flow counting active traps.</p>
       </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section">
+    <section id="contact" class="sec sec-b" data-chapter="normal">
       <div class="container">
-        <aside class="contact-cta reveal" id="get-in-touch" aria-label="Get in touch">
-          <p class="mono-label">Get in touch</p>
-          <h3>Let's build something that works.</h3>
-          <p>Working on video understanding, deployable computer vision, or perception in messy real-world conditions? I'd genuinely like to hear about it. Email's the fastest way to reach me — I read every note.</p>
-          <a class="btn btn-primary" href="mailto:alisoltaninezhad@uvic.ca">alisoltaninezhad@uvic.ca</a>
-          <p class="contact-loc">Based in Victoria, BC, Canada</p>
-          <div class="contact-cta-social">
-            <a href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
-            <a href="https://github.com/alisoltani7596" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://www.linkedin.com/in/ali-soltaninezhad-7232b41b3/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://www.researchgate.net/profile/Ali-Soltani-Nezhad-2" target="_blank" rel="noopener">ResearchGate</a>
+        <div class="contact-panel reveal" id="get-in-touch">
+          <p class="eyebrow">Contact</p>
+          <h2 class="sec-title">Let's build something that works.</h2>
+          <p class="sec-lede">Working on video understanding, deployable computer vision, or perception in messy real-world conditions? Email is the fastest way to reach me. I read every note.</p>
+          <a class="btn" href="mailto:alisoltaninezhad@uvic.ca">alisoltaninezhad@uvic.ca</a>
+          <p class="contact-loc">Victoria, BC, Canada</p>
+          <div class="profiles">
+            <a class="link" href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+            <a class="link" href="https://github.com/alisoltani7596" target="_blank" rel="noopener">GitHub</a>
+            <a class="link" href="https://www.linkedin.com/in/alisoltaninezhad" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="link" href="https://www.researchgate.net/profile/Ali-Soltani-Nezhad-2" target="_blank" rel="noopener">ResearchGate</a>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Ali Soltaninezhad</p>
-      <p>Built with vanilla HTML, CSS &amp; GSAP</p>
-      <a href="#hero" class="back-to-top">Back to top ↑</a>
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <h4>Research</h4>
+          <ul>
+            <li><a href="#research">Interests</a></li>
+            <li><a href="#projects">Selected projects</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#industry">Industry impact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Teaching</h4>
+          <ul>
+            <li><a href="#teaching">Medical Image Processing</a></li>
+            <li><a href="#teaching">Computer Vision</a></li>
+            <li><a href="#teaching">Applied Data Analysis</a></li>
+            <li><a href="#honors">Honors &amp; awards</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Profiles</h4>
+          <ul>
+            <li><a href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="https://github.com/alisoltani7596" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/alisoltaninezhad" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.researchgate.net/profile/Ali-Soltani-Nezhad-2" target="_blank" rel="noopener">ResearchGate</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:alisoltaninezhad@uvic.ca">alisoltaninezhad@uvic.ca</a></li>
+            <li><a href="assets/cv/Ali_Soltaninezhad_CV.pdf" download>Download CV</a></li>
+            <li>Victoria, BC, Canada</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p>Copyright © <span id="year"></span> Ali Soltaninezhad. All rights reserved.</p>
+        <p>Plain HTML, CSS and JavaScript. No trackers.</p>
+        <a href="#hero">Back to top ›</a>
+      </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/publications.js" defer></script>
-  <script src="assets/js/animations.js" defer></script>
-  <script src="assets/js/progress-line.js" defer></script>
-  <script src="assets/js/neural-bg.js" defer></script>
-  <script src="assets/js/cursor-glow.js" defer></script>
+  <script src="assets/js/main.js?v=20260908f" defer></script>
+  <script src="assets/js/publications.js?v=20260908" defer></script>
 </body>
 </html>
