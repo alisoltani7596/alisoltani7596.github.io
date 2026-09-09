@@ -1,5 +1,41 @@
 [
   {
+    "id": "ai-em-assistant",
+    "title": "Steering Human Review Toward AI Mistakes in Video",
+    "summary": "When an AI watches hours of video, its costliest failures are the events it never flags. This work asks where a limited human review budget should go — and points it at the model's likely errors.",
+    "tags": [
+      "Human-AI",
+      "Action Detection",
+      "Missed Events"
+    ],
+    "img": "assets/img/thumbs/ai-assistant.jpg",
+    "badge": "In Progress",
+    "links": {
+      "paper": "",
+      "code": "",
+      "dataset": ""
+    },
+    "details": "No AI video system is perfect, and no human can re-watch everything it processed. This project studies how a fixed amount of human review time should be spent when a detector's output can't be fully trusted — with special attention to the errors that are hardest to find: the events the model missed entirely. The approach works with existing detectors as-is, without retraining them, and is evaluated on public video benchmarks across multiple detection models. The full method and results are in a paper currently under review, so I'm keeping the details light until then."
+  },
+  {
+    "id": "task-aware-anonymization",
+    "title": "Privacy-Preserving Video Anonymization for At-Sea Monitoring",
+    "summary": "Masking who's in frame — and measuring how well — without touching what reviewers need to see.",
+    "tags": [
+      "Video Privacy",
+      "Anonymization",
+      "Real-World Deployment"
+    ],
+    "img": "assets/img/thumbs/task-aware.jpg",
+    "badge": "In Progress",
+    "links": {
+      "paper": "",
+      "code": "",
+      "dataset": ""
+    },
+    "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting — detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. What sets it apart is how privacy is treated: not assumed from visual inspection, but stress-tested against adversaries that actively try to re-identify the people in anonymized video. Paper in preparation."
+  },
+  {
     "id": "error-aware-guidance",
     "title": "Which 10% do you show the human?",
     "summary": "Deck cameras record everything; reviewers watch about a tenth of it. This points that same tenth at the predictions most likely to be wrong.",
@@ -19,24 +55,6 @@
     "details": "Deck cameras record all fishing activity, but reviewers watch roughly 10% of it, so whatever the AI gets wrong outside that slice stays in the record. This work scores every prediction of a frozen detector by how likely it is to be an error, combining the model's own confidence with a second saliency signal that the confidence does not capture, and hands the top of that ranking to the reviewer. One term targets missed events, where the evidence is there but confidence is low; the other targets false alarms, where confidence is high and evidence is thin. At the same 10% budget the audited record ends up holding 55 of 57 events, against 50 for the detector alone and 52 under random review, and the gain holds across three temporal detectors and two image classifiers. No retraining, no larger model, no failure labels: the only thing that changes is where the reviewer looks. Oral at the 2nd Workshop on Marine Vision, ECCV Workshops (ECCVW) 2026.",
     "imgFit": "contain",
     "oral": true
-  },
-  {
-    "id": "task-aware-anonymization",
-    "title": "Privacy-Preserving Video Anonymization for At-Sea Monitoring",
-    "summary": "Masking who's in frame — and measuring how well — without touching what reviewers need to see.",
-    "tags": [
-      "Video Privacy",
-      "Anonymization",
-      "Real-World Deployment"
-    ],
-    "img": "assets/img/thumbs/task-aware.jpg",
-    "badge": "In Progress",
-    "links": {
-      "paper": "",
-      "code": "",
-      "dataset": ""
-    },
-    "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting — detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. What sets it apart is how privacy is treated: not assumed from visual inspection, but stress-tested against adversaries that actively try to re-identify the people in anonymized video. Paper in preparation."
   },
   {
     "id": "tubelite",

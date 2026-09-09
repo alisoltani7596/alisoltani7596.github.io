@@ -464,7 +464,7 @@ html[data-theme="dark"] .icon-moon { display: none; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; max-width: 960px; margin: 0 auto; text-align: center; }
 .stat .stat-num {
   margin: 0; color: var(--text);
-  font-size: clamp(44px, 6vw, 72px); font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  font-size: clamp(30px, 4vw, 46px); font-weight: 700; letter-spacing: -0.025em; line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .stat h3 { margin-top: 14px; font-size: 17px; font-weight: 600; }
