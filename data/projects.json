@@ -48,6 +48,7 @@
     "badge": "ECCVW 2026 · First author",
     "links": {
       "paper": "https://openreview.net/forum?id=1cmuiiSYVa",
+      "talk": "https://docs.google.com/presentation/d/1wxBj6l3DogbmeIeWa9lv4alVX29wtIFM/edit?usp=sharing",
       "poster": "assets/posters/eccvw-2026-poster.pdf",
       "code": "",
       "dataset": ""
@@ -71,6 +72,8 @@
     "badge": "ICPR 2026 · First author",
     "links": {
       "paper": "https://arxiv.org/abs/2607.04684",
+      "slides": "https://docs.google.com/presentation/d/1xmnPYJALFxW-T1eiJqO5YIor7CXkx_6X/edit?usp=sharing",
+      "poster": "https://drive.google.com/file/d/1Y8cAwCKbWfTXbVpZPZyQhHDCHklnHlEJ/view?usp=sharing",
       "code": "",
       "dataset": ""
     },
