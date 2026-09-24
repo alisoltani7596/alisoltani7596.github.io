@@ -8,7 +8,11 @@
     "status": "Published",
     "link": "https://openreview.net/forum?id=1cmuiiSYVa",
     "doi": "",
-    "oral": true
+    "oral": true,
+    "links": {
+      "talk": "https://docs.google.com/presentation/d/1wxBj6l3DogbmeIeWa9lv4alVX29wtIFM/edit?usp=sharing",
+      "poster": "assets/posters/eccvw-2026-poster.pdf"
+    }
   },
   {
     "title": "TubeLite: Lightweight Multi-Actor Spatio-Temporal Action Detection",
@@ -19,7 +23,10 @@
     "status": "Published",
     "link": "https://link.springer.com/chapter/10.1007/978-3-032-31663-9_46",
     "doi": "",
-    "oral": true
+    "oral": true,
+    "links": {
+      "slides": "https://docs.google.com/presentation/d/1xmnPYJALFxW-T1eiJqO5YIor7CXkx_6X/edit?usp=sharing"
+    }
   },
   {
     "title": "TrapCounter: Integrating Detection, Tracking and Optical Flow for the Automatic Counting of Active Fishing Traps",

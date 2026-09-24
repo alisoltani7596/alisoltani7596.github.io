@@ -51,6 +51,12 @@
       var view = pubUrl
         ? '<a class="link" href="' + pubUrl + '" target="_blank" rel="noopener">View publication</a>'
         : "";
+      var extra = "";
+      if (p.links) {
+        if (p.links.slides) extra += '<a class="link" href="' + p.links.slides + '" target="_blank" rel="noopener">Slides</a>';
+        if (p.links.talk) extra += '<a class="link" href="' + p.links.talk + '" target="_blank" rel="noopener">Talk</a>';
+        if (p.links.poster) extra += '<a class="link" href="' + p.links.poster + '" target="_blank" rel="noopener">Poster</a>';
+      }
       return '<li class="pub-row">' +
         "<h3>" + titleHtml + "</h3>" +
         '<p class="pub-authors">' + boldMe(p.authors) + "</p>" +
@@ -59,6 +65,7 @@
           '<span class="tag">' + p.status + "</span>" +
           (p.oral ? '<span class="tag tag--accent">Oral</span>' : "") +
           view +
+          extra +
         "</div>" +
       "</li>";
     }).join("");
