@@ -1,5 +1,15 @@
 [
   {
+    "title": "Missed-Event Routing for Temporal Action Detection",
+    "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, and A. Branzan Albu",
+    "venue": "IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)",
+    "year": 2027,
+    "type": "Conference",
+    "status": "Accepted",
+    "link": "",
+    "doi": ""
+  },
+  {
     "title": "Error-Aware Reviewer Guidance for AI-Assisted Fisheries Electronic Monitoring",
     "authors": "A. Soltaninezhad, M. Cote, A. Rico Espinosa, T. Porto Marques, A. Branzan Albu, and J. Lower",
     "venue": "2nd Workshop on Marine Vision, ECCV Workshops (ECCVW)",

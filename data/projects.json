@@ -1,21 +1,21 @@
 [
   {
     "id": "ai-em-assistant",
-    "title": "Steering Human Review Toward AI Mistakes in Video",
-    "summary": "When an AI watches hours of video, its costliest failures are the events it never flags. This work asks where a limited human review budget should go — and points it at the model's likely errors.",
+    "title": "Missed-Event Routing for Temporal Action Detection",
+    "summary": "This work separates the events a detector missed from the ones it only mistimed, and decides which video windows a limited review budget should check.",
     "tags": [
-      "Human-AI",
-      "Action Detection",
+      "Temporal Action Detection",
+      "Human Review",
       "Missed Events"
     ],
-    "img": "assets/img/thumbs/ai-assistant.jpg",
-    "badge": "In Progress",
+    "img": "assets/img/thumbs/missed-event-routing.jpg",
+    "badge": "WACV 2027 · First author",
     "links": {
       "paper": "",
       "code": "",
       "dataset": ""
     },
-    "details": "No AI video system is perfect, and no human can re-watch everything it processed. This project studies how a fixed amount of human review time should be spent when a detector's output can't be fully trusted — with special attention to the errors that are hardest to find: the events the model missed entirely. The approach works with existing detectors as-is, without retraining them, and is evaluated on public video benchmarks across multiple detection models. The full method and results are in a paper currently under review, so I'm keeping the details light until then."
+    "details": "A follow-up to my ECCVW 2026 paper, this work separates two kinds of error in temporal action detection: missed events, which no detection overlaps, and boundary errors, where the event is found but mistimed. A training-free score decides which video windows a limited review budget should check, combining visual activity from pretrained features, the detector's confidence and gaps in its coverage. It has one fixed parameter, needs no labels of past failures, works on frozen detectors, and was tested with ActionFormer and TriDet on THUMOS14 and ActivityNet-1.3. In simulated review on THUMOS14, a 10% review budget raises average mAP 8.4 points above random review with ActionFormer, and 6.1 points with TriDet."
   },
   {
     "id": "task-aware-anonymization",
@@ -33,7 +33,7 @@
       "code": "",
       "dataset": ""
     },
-    "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting — detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. What sets it apart is how privacy is treated: not assumed from visual inspection, but stress-tested against adversaries that actively try to re-identify the people in anonymized video. Paper in preparation."
+    "details": "Monitoring video has to do two jobs at once: protect the identity of the people in it, and stay fully usable for the humans reviewing it. This project builds an anonymization pipeline for exactly that setting: detecting, tracking, and masking people across long, messy real-world footage from working fishing vessels, with no generative AI in the loop. Paper in preparation."
   },
   {
     "id": "error-aware-guidance",
