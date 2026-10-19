@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ali Soltaninezhad — Computer Vision & Action Detection Researcher</title>
+  <meta name="description" content="Ali Soltaninezhad is a PhD candidate at the University of Victoria building lightweight computer vision for video — spatio-temporal action detection, video understanding, and deployable AI that works in the real world." />
+  <meta name="author" content="Ali Soltaninezhad" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="keywords" content="Ali Soltaninezhad, computer vision, spatio-temporal action detection, video understanding, action recognition, deep learning, deployable AI, University of Victoria, PhD, FishVue, ECCVW, Marine Vision Workshop, ECCV, WACV" />
+  <link rel="canonical" href="https://alisoltani7596.github.io/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ali Soltaninezhad" />
+  <meta property="og:title" content="Ali Soltaninezhad — Computer Vision & Action Detection Researcher" />
+  <meta property="og:description" content="PhD candidate at the University of Victoria building lightweight computer vision for video — action detection, video understanding, and deployable AI that works in the real world." />
+  <meta property="og:url" content="https://alisoltani7596.github.io/" />
+  <meta property="og:image" content="https://alisoltani7596.github.io/assets/img/profile.jpg" />
+  <meta property="og:image:alt" content="Ali Soltaninezhad — computer vision researcher" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ali Soltaninezhad — Computer Vision & Action Detection Researcher" />
+  <meta name="twitter:description" content="PhD candidate at UVic. Lightweight action detection, video understanding, and deployable AI that works in the real world." />
+  <meta name="twitter:image" content="https://alisoltani7596.github.io/assets/img/profile.jpg" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260908o" />
+
+  <!-- Apply a stored theme before first paint; mark JS as available -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.className += " js";
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ali Soltaninezhad",
+    "url": "https://alisoltani7596.github.io/",
+    "image": "https://alisoltani7596.github.io/assets/img/profile.jpg",
+    "jobTitle": "PhD Candidate in Electrical & Computer Engineering",
+    "description": "PhD candidate at the University of Victoria researching lightweight spatio-temporal action detection, video understanding, and deployable computer vision for real-world environments.",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Victoria"
+    },
+    "knowsAbout": [
+      "Computer Vision",
+      "Spatio-Temporal Action Detection",
+      "Video Understanding",
+      "Privacy-Preserving Perception",
+      "Deployable AI"
+    ],
+    "alumniOf": "University of Victoria",
+    "email": "mailto:alisoltani7596@gmail.com",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en",
+      "https://github.com/alisoltani7596",
+      "https://www.linkedin.com/in/alisoltaninezhad",
+      "https://www.researchgate.net/profile/Ali-Soltaninezhad-4"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Nav: flush at the top, frosted once content scrolls beneath it -->
+  <header id="nav" class="nav" data-chapter="normal">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand">Ali Soltaninezhad</a>
+      <nav id="nav-links" class="nav-links" aria-label="Primary">
+        <a href="#research">Research</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="nav-btn theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button id="nav-burger" class="nav-btn nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div id="nav-scrim" class="nav-scrim" aria-hidden="true"></div>
+
+  <main id="main">
+
+    <!-- Hero: name, one claim, two actions, and the real thing the models see -->
+    <section id="hero" class="hero sec-a" data-chapter="normal">
+      <div id="nav-sentinel" class="nav-sentinel" aria-hidden="true"></div>
+      <div class="hero-scene">
+        <div class="hero-copy">
+          <a class="hero-news" href="#publications"><span>New</span>Accepted at WACV 2027</a>
+          <p class="hero-eyebrow">PhD candidate · University of Victoria</p>
+          <h1 class="hero-name">Ali Soltaninezhad</h1>
+          <p class="hero-tagline">Computer vision that works in the real world.</p>
+          <div class="hero-ctas">
+            <a class="btn" href="#projects">See the research</a>
+            <a class="link link--lg" href="assets/cv/Ali_Soltaninezhad_CV.pdf" download>Download CV</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <div class="hero-float">
+            <figure class="hero-figure">
+              <!-- Routing: everything the model saw, and the few predictions sent to a person -->
+              <svg class="route-figure" viewBox="0 0 1000 420" role="img"
+                   aria-label="A field of small dots stands for everything a model looked at. A few are picked out and threaded to a short column on the right, the handful a person actually reviews.">
+                <defs>
+                  <radialGradient id="rt-glow-grad">
+                    <stop class="rt-glow-in" offset="0" />
+                    <stop class="rt-glow-out" offset="1" />
+                  </radialGradient>
+                </defs>
+                <ellipse class="rt-glow" cx="905" cy="205" rx="150" ry="185" />
+                <g class="rt-threads">
+                  <path class="rt-thread" style="animation-delay:0.95s" pathLength="1" d="M121 283 C309 283 638 222 894 222" />
+                  <path class="rt-thread" style="animation-delay:1.02s" pathLength="1" d="M220 128 C384 128 672 154 894 154" />
+                  <path class="rt-thread" style="animation-delay:1.09s" pathLength="1" d="M319 314 C460 314 706 290 894 290" />
+                  <path class="rt-thread" style="animation-delay:1.16s" pathLength="1" d="M418 190 C535 190 739 188 894 188" />
+                  <path class="rt-thread" style="animation-delay:1.23s" pathLength="1" d="M517 97 C610 97 773 120 894 120" />
+                  <path class="rt-thread" style="animation-delay:1.30s" pathLength="1" d="M616 252 C685 252 807 256 894 256" />
+                </g>
+                <g class="rt-field">
+                  <circle cx="44" cy="66" r="3.2" />
+                  <circle cx="77" cy="66" r="3.2" />
+                  <circle cx="110" cy="66" r="3.2" />
+                  <circle cx="143" cy="66" r="3.2" />
+                  <circle cx="176" cy="66" r="3.2" />
+                  <circle cx="209" cy="66" r="3.2" />
+                  <circle cx="242" cy="66" r="3.2" />
+                  <circle cx="275" cy="66" r="3.2" />
+                  <circle cx="308" cy="66" r="3.2" />
+                  <circle cx="341" cy="66" r="3.2" />
+                  <circle cx="374" cy="66" r="3.2" />
+                  <circle cx="407" cy="66" r="3.2" />
+                  <circle cx="440" cy="66" r="3.2" />
+                  <circle cx="473" cy="66" r="3.2" />
+                  <circle cx="506" cy="66" r="3.2" />
+                  <circle cx="539" cy="66" r="3.2" />
+                  <circle cx="572" cy="66" r="3.2" />
+                  <circle cx="605" cy="66" r="3.2" />
+                  <circle cx="638" cy="66" r="3.2" />
+                  <circle cx="671" cy="66" r="3.2" />
+                  <circle cx="44" cy="97" r="3.2" />
+                  <circle cx="77" cy="97" r="3.2" />
+                  <circle cx="110" cy="97" r="3.2" />
+                  <circle cx="143" cy="97" r="3.2" />
+                  <circle cx="176" cy="97" r="3.2" />
+                  <circle cx="209" cy="97" r="3.2" />
+                  <circle cx="242" cy="97" r="3.2" />
+                  <circle cx="275" cy="97" r="3.2" />
+                  <circle cx="308" cy="97" r="3.2" />
+                  <circle cx="341" cy="97" r="3.2" />
+                  <circle cx="374" cy="97" r="3.2" />
+                  <circle cx="407" cy="97" r="3.2" />
+                  <circle cx="440" cy="97" r="3.2" />
+                  <circle cx="473" cy="97" r="3.2" />
+                  <circle cx="539" cy="97" r="3.2" />
+                  <circle cx="572" cy="97" r="3.2" />
+                  <circle cx="605" cy="97" r="3.2" />
+                  <circle cx="638" cy="97" r="3.2" />
+                  <circle cx="671" cy="97" r="3.2" />
+                  <circle cx="44" cy="128" r="3.2" />
+                  <circle cx="77" cy="128" r="3.2" />
+                  <circle cx="110" cy="128" r="3.2" />
+                  <circle cx="143" cy="128" r="3.2" />
+                  <circle cx="176" cy="128" r="3.2" />
+                  <circle cx="242" cy="128" r="3.2" />
+                  <circle cx="275" cy="128" r="3.2" />
+                  <circle cx="308" cy="128" r="3.2" />
+                  <circle cx="341" cy="128" r="3.2" />
+                  <circle cx="374" cy="128" r="3.2" />
+                  <circle cx="407" cy="128" r="3.2" />
+                  <circle cx="440" cy="128" r="3.2" />
+                  <circle cx="473" cy="128" r="3.2" />
+                  <circle cx="506" cy="128" r="3.2" />
+                  <circle cx="539" cy="128" r="3.2" />
+                  <circle cx="572" cy="128" r="3.2" />
+                  <circle cx="605" cy="128" r="3.2" />
+                  <circle cx="638" cy="128" r="3.2" />
+                  <circle cx="671" cy="128" r="3.2" />
+                  <circle cx="44" cy="159" r="3.2" />
+                  <circle cx="77" cy="159" r="3.2" />
+                  <circle cx="110" cy="159" r="3.2" />
+                  <circle cx="143" cy="159" r="3.2" />
+                  <circle cx="176" cy="159" r="3.2" />
+                  <circle cx="209" cy="159" r="3.2" />
+                  <circle cx="242" cy="159" r="3.2" />
+                  <circle cx="275" cy="159" r="3.2" />
+                  <circle cx="308" cy="159" r="3.2" />
+                  <circle cx="341" cy="159" r="3.2" />
+                  <circle cx="374" cy="159" r="3.2" />
+                  <circle cx="407" cy="159" r="3.2" />
+                  <circle cx="440" cy="159" r="3.2" />
+                  <circle cx="473" cy="159" r="3.2" />
+                  <circle cx="506" cy="159" r="3.2" />
+                  <circle cx="539" cy="159" r="3.2" />
+                  <circle cx="572" cy="159" r="3.2" />
+                  <circle cx="605" cy="159" r="3.2" />
+                  <circle cx="638" cy="159" r="3.2" />
+                  <circle cx="671" cy="159" r="3.2" />
+                  <circle cx="44" cy="190" r="3.2" />
+                  <circle cx="77" cy="190" r="3.2" />
+                  <circle cx="110" cy="190" r="3.2" />
+                  <circle cx="143" cy="190" r="3.2" />
+                  <circle cx="176" cy="190" r="3.2" />
+                  <circle cx="209" cy="190" r="3.2" />
+                  <circle cx="242" cy="190" r="3.2" />
+                  <circle cx="275" cy="190" r="3.2" />
+                  <circle cx="308" cy="190" r="3.2" />
+                  <circle cx="341" cy="190" r="3.2" />
+                  <circle cx="374" cy="190" r="3.2" />
+                  <circle cx="440" cy="190" r="3.2" />
+                  <circle cx="473" cy="190" r="3.2" />
+                  <circle cx="506" cy="190" r="3.2" />
+                  <circle cx="539" cy="190" r="3.2" />
+                  <circle cx="572" cy="190" r="3.2" />
+                  <circle cx="605" cy="190" r="3.2" />
+                  <circle cx="638" cy="190" r="3.2" />
+                  <circle cx="671" cy="190" r="3.2" />
+                  <circle cx="44" cy="221" r="3.2" />
+                  <circle cx="77" cy="221" r="3.2" />
+                  <circle cx="110" cy="221" r="3.2" />
+                  <circle cx="143" cy="221" r="3.2" />
+                  <circle cx="176" cy="221" r="3.2" />
+                  <circle cx="209" cy="221" r="3.2" />
+                  <circle cx="242" cy="221" r="3.2" />
+                  <circle cx="275" cy="221" r="3.2" />
+                  <circle cx="308" cy="221" r="3.2" />
+                  <circle cx="341" cy="221" r="3.2" />
+                  <circle cx="374" cy="221" r="3.2" />
+                  <circle cx="407" cy="221" r="3.2" />
+                  <circle cx="440" cy="221" r="3.2" />
+                  <circle cx="473" cy="221" r="3.2" />
+                  <circle cx="506" cy="221" r="3.2" />
+                  <circle cx="539" cy="221" r="3.2" />
+                  <circle cx="572" cy="221" r="3.2" />
+                  <circle cx="605" cy="221" r="3.2" />
+                  <circle cx="638" cy="221" r="3.2" />
+                  <circle cx="671" cy="221" r="3.2" />
+                  <circle cx="44" cy="252" r="3.2" />
+                  <circle cx="77" cy="252" r="3.2" />
+                  <circle cx="110" cy="252" r="3.2" />
+                  <circle cx="143" cy="252" r="3.2" />
+                  <circle cx="176" cy="252" r="3.2" />
+                  <circle cx="209" cy="252" r="3.2" />
+                  <circle cx="242" cy="252" r="3.2" />
+                  <circle cx="275" cy="252" r="3.2" />
+                  <circle cx="308" cy="252" r="3.2" />
+                  <circle cx="341" cy="252" r="3.2" />
+                  <circle cx="374" cy="252" r="3.2" />
+                  <circle cx="407" cy="252" r="3.2" />
+                  <circle cx="440" cy="252" r="3.2" />
+                  <circle cx="473" cy="252" r="3.2" />
+                  <circle cx="506" cy="252" r="3.2" />
+                  <circle cx="539" cy="252" r="3.2" />
+                  <circle cx="572" cy="252" r="3.2" />
+                  <circle cx="638" cy="252" r="3.2" />
+                  <circle cx="671" cy="252" r="3.2" />
+                  <circle cx="44" cy="283" r="3.2" />
+                  <circle cx="77" cy="283" r="3.2" />
+                  <circle cx="143" cy="283" r="3.2" />
+                  <circle cx="176" cy="283" r="3.2" />
+                  <circle cx="209" cy="283" r="3.2" />
+                  <circle cx="242" cy="283" r="3.2" />
+                  <circle cx="275" cy="283" r="3.2" />
+                  <circle cx="308" cy="283" r="3.2" />
+                  <circle cx="341" cy="283" r="3.2" />
+                  <circle cx="374" cy="283" r="3.2" />
+                  <circle cx="407" cy="283" r="3.2" />
+                  <circle cx="440" cy="283" r="3.2" />
+                  <circle cx="473" cy="283" r="3.2" />
+                  <circle cx="506" cy="283" r="3.2" />
+                  <circle cx="539" cy="283" r="3.2" />
+                  <circle cx="572" cy="283" r="3.2" />
+                  <circle cx="605" cy="283" r="3.2" />
+                  <circle cx="638" cy="283" r="3.2" />
+                  <circle cx="671" cy="283" r="3.2" />
+                  <circle cx="44" cy="314" r="3.2" />
+                  <circle cx="77" cy="314" r="3.2" />
+                  <circle cx="110" cy="314" r="3.2" />
+                  <circle cx="143" cy="314" r="3.2" />
+                  <circle cx="176" cy="314" r="3.2" />
+                  <circle cx="209" cy="314" r="3.2" />
+                  <circle cx="242" cy="314" r="3.2" />
+                  <circle cx="275" cy="314" r="3.2" />
+                  <circle cx="341" cy="314" r="3.2" />
+                  <circle cx="374" cy="314" r="3.2" />
+                  <circle cx="407" cy="314" r="3.2" />
+                  <circle cx="440" cy="314" r="3.2" />
+                  <circle cx="473" cy="314" r="3.2" />
+                  <circle cx="506" cy="314" r="3.2" />
+                  <circle cx="539" cy="314" r="3.2" />
+                  <circle cx="572" cy="314" r="3.2" />
+                  <circle cx="605" cy="314" r="3.2" />
+                  <circle cx="638" cy="314" r="3.2" />
+                  <circle cx="671" cy="314" r="3.2" />
+                  <circle cx="44" cy="345" r="3.2" />
+                  <circle cx="77" cy="345" r="3.2" />
+                  <circle cx="110" cy="345" r="3.2" />
+                  <circle cx="143" cy="345" r="3.2" />
+                  <circle cx="176" cy="345" r="3.2" />
+                  <circle cx="209" cy="345" r="3.2" />
+                  <circle cx="242" cy="345" r="3.2" />
+                  <circle cx="275" cy="345" r="3.2" />
+                  <circle cx="308" cy="345" r="3.2" />
+                  <circle cx="341" cy="345" r="3.2" />
+                  <circle cx="374" cy="345" r="3.2" />
+                  <circle cx="407" cy="345" r="3.2" />
+                  <circle cx="440" cy="345" r="3.2" />
+                  <circle cx="473" cy="345" r="3.2" />
+                  <circle cx="506" cy="345" r="3.2" />
+                  <circle cx="539" cy="345" r="3.2" />
+                  <circle cx="572" cy="345" r="3.2" />
+                  <circle cx="605" cy="345" r="3.2" />
+                  <circle cx="638" cy="345" r="3.2" />
+                  <circle cx="671" cy="345" r="3.2" />
+                </g>
+                <g class="rt-hits">
+                  <g class="rt-hit" style="animation-delay:0.55s"><circle class="rt-ring" cx="110" cy="283" r="10" /><circle class="rt-dot" cx="110" cy="283" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.61s"><circle class="rt-ring" cx="209" cy="128" r="10" /><circle class="rt-dot" cx="209" cy="128" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.67s"><circle class="rt-ring" cx="308" cy="314" r="10" /><circle class="rt-dot" cx="308" cy="314" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.73s"><circle class="rt-ring" cx="407" cy="190" r="10" /><circle class="rt-dot" cx="407" cy="190" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.79s"><circle class="rt-ring" cx="506" cy="97" r="10" /><circle class="rt-dot" cx="506" cy="97" r="4.6" /></g>
+                  <g class="rt-hit" style="animation-delay:0.85s"><circle class="rt-ring" cx="605" cy="252" r="10" /><circle class="rt-dot" cx="605" cy="252" r="4.6" /></g>
+                </g>
+                <g class="rt-queue">
+                  <g class="rt-slot" style="animation-delay:1.53s"><circle class="rt-ring" cx="905" cy="222" r="11" /><circle class="rt-dot" cx="905" cy="222" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.41s"><circle class="rt-ring" cx="905" cy="154" r="11" /><circle class="rt-dot" cx="905" cy="154" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.65s"><circle class="rt-ring" cx="905" cy="290" r="11" /><circle class="rt-dot" cx="905" cy="290" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.47s"><circle class="rt-ring" cx="905" cy="188" r="11" /><circle class="rt-dot" cx="905" cy="188" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.35s"><circle class="rt-ring" cx="905" cy="120" r="11" /><circle class="rt-dot" cx="905" cy="120" r="5.2" /></g>
+                  <g class="rt-slot" style="animation-delay:1.59s"><circle class="rt-ring" cx="905" cy="256" r="11" /><circle class="rt-dot" cx="905" cy="256" r="5.2" /></g>
+                </g>
+              </svg>
+            </figure>
+          </div>
+          <p class="hero-caption">Everything a model sees, and the small part worth a person’s attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research highlights -->
+    <section id="research" class="sec sec-b" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Research</p>
+          <h2 class="sec-title">Perception that holds up outside the lab.</h2>
+          <p class="sec-lede">Five threads, one goal: video models that are fast enough, light enough, and robust enough to leave the cluster.</p>
+        </header>
+        <div class="bento">
+          <article class="tile reveal">
+            <h3>Spatio-temporal action detection</h3>
+            <p>Localizing who does what, and when, efficiently across long videos.</p>
+          </article>
+          <article class="tile reveal">
+            <h3>Video understanding</h3>
+            <p>Motion-aware models that reason about events, not just frames.</p>
+          </article>
+          <article class="tile reveal">
+            <h3>Privacy-preserving perception</h3>
+            <p>Recognizing actions while protecting the identity of the people in frame.</p>
+          </article>
+          <article class="tile reveal">
+            <h3>Environmental monitoring AI</h3>
+            <p>Deployable perception for maritime and ecological monitoring.</p>
+          </article>
+          <article class="tile reveal">
+            <h3>Medical image processing</h3>
+            <p>Robust analysis pipelines for clinical and biomedical imaging.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="sec sec-a" data-chapter="normal">
+      <div class="container about">
+        <div class="reveal">
+          <header class="sec-head sec-head--left">
+            <p class="eyebrow">About</p>
+            <h2 class="sec-title">Machine perception that survives the messy parts.</h2>
+          </header>
+          <div class="prose">
+            <p>I'm a PhD candidate in Electrical and Computer Engineering at the <a href="https://www.uvic.ca/" target="_blank" rel="noopener">University of Victoria</a>, in <a href="https://www.branzanalbu.com/" target="_blank" rel="noopener">Dr. Alexandra Branzan Albu</a>'s Computer Vision Lab. I teach machines to read what people are doing in video, fast enough and light enough to run outside a research cluster. In practice that means spatio-temporal action detection, motion-aware video understanding, privacy-preserving perception, and models built to hold up in the wild.</p>
+            <p>The work has left the lab. First author at WACV 2027, and of three oral papers: ECCVW 2026 (the 2nd Marine Vision Workshop at ECCV), ICPR 2026 and CRV 2025. It also powers <a href="https://www.archipelago.ca/" target="_blank" rel="noopener">Archipelago Marine Research</a>'s FishVue platform, which took the <a href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener">2026 VIATEC Innovative Excellence Award</a>. I taught UVic's Medical Image Processing course (ECE 435 / BME 403) as sole instructor from January to April 2026, supported by a $10,000 President's Fellowship in Research-Enriched Teaching.</p>
+            <p>What I care about is computer vision that survives the messy parts: the open sea, bad light, occlusion, motion blur. Not just a clean benchmark. If that sounds like your problem too, let's talk.</p>
+          </div>
+        </div>
+        <aside class="reveal" aria-label="At a glance">
+          <div class="facts-head">
+            <img class="facts-avatar" src="assets/img/profile.jpg" alt="" width="56" height="56" loading="lazy" decoding="async" />
+            <div><strong>Ali Soltaninezhad</strong><span>Victoria, BC, Canada</span></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Program</dt><dd>PhD, Electrical &amp; Computer Engineering</dd></div>
+            <div><dt>University</dt><dd>University of Victoria</dd></div>
+            <div><dt>Supervisor</dt><dd>Dr. Alexandra Branzan Albu</dd></div>
+            <div><dt>GPA</dt><dd>9.0 / 9.0</dd></div>
+            <div><dt>First author</dt><dd>WACV 2027 · ECCVW 2026 · ICPR 2026 · CRV 2025</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Selected projects -->
+    <section id="projects" class="sec sec-b" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Selected projects</p>
+          <h2 class="sec-title">Built to run where it's hard.</h2>
+          <p class="sec-lede">From reviewer guidance to lightweight action detection and privacy on working vessels.</p>
+        </header>
+        <div id="projects-grid" class="cards">
+          <p class="loading">Loading projects…</p>
+        </div>
+        <noscript><p class="loading">Project details require JavaScript. See <a href="data/projects.json">projects.json</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="sec sec-a" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Publications</p>
+          <h2 class="sec-title">First author at WACV, ECCVW, ICPR and CRV.</h2>
+          <p class="sec-lede">Peer-reviewed work on action detection, at-sea monitoring, and video understanding. The ECCVW, ICPR and CRV papers were oral presentations.</p>
+        </header>
+        <div class="pub-controls reveal">
+          <div class="seg" id="pub-type-filters" role="group" aria-label="Publication type">
+            <button type="button" class="is-active" data-type="all" aria-pressed="true">All</button>
+            <button type="button" data-type="Journal" aria-pressed="false">Journal</button>
+            <button type="button" data-type="Conference" aria-pressed="false">Conference</button>
+          </div>
+          <label>
+            <span class="visually-hidden">Filter by year</span>
+            <select id="pub-year-filter" class="select">
+              <option value="all">All years</option>
+            </select>
+          </label>
+        </div>
+        <ol id="publications-list" class="panel pub-list reveal">
+          <li class="pub-empty">Loading publications…</li>
+        </ol>
+        <noscript><p class="loading">The publication list requires JavaScript. See <a href="data/publications.json">publications.json</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" class="sec sec-b" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Teaching</p>
+          <h2 class="sec-title">Instructor for Medical Image Processing at UVic.</h2>
+        </header>
+        <div class="panel rows reveal">
+          <div class="row">
+            <p class="row-when">Jan – Apr 2026</p>
+            <div>
+              <h3>Course instructor</h3>
+              <p>ECE 435 / BME 403, Medical Image Processing. University of Victoria.</p>
+            </div>
+          </div>
+          <div class="row">
+            <p class="row-when">2024 – 2026</p>
+            <div>
+              <h3>Super teaching assistant</h3>
+              <p>ECE 471, Computer Vision (2024) · ECE 537, Applied Data Analysis (2025, 2026).</p>
+            </div>
+          </div>
+          <div class="row">
+            <p class="row-when">2023 – 2026</p>
+            <div>
+              <h3>Lab instructor and teaching assistant</h3>
+              <p>Control Systems, Digital Design, VLSI Systems, Electronic Circuits, Signals &amp; Systems. University of Victoria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Honors -->
+    <section id="honors" class="sec sec-a" data-chapter="normal">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Honors &amp; awards</p>
+          <h2 class="sec-title">Fellowship and national rankings.</h2>
+        </header>
+        <div class="stats">
+          <div class="stat reveal">
+            <p class="stat-num">$10K</p>
+            <h3>President's Fellowship</h3>
+            <p>Research-Enriched Teaching, 2025.</p>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">Top 1%</p>
+            <h3>National BSc entrance exam</h3>
+            <p>Ranked in the top 1% nationally.</p>
+          </div>
+          <div class="stat reveal">
+            <p class="stat-num">Top 3%</p>
+            <h3>National MSc entrance exam</h3>
+            <p>Ranked in the top 3% nationally.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Industry impact: the one inverted chapter -->
+    <section id="industry" class="sec sec-invert chapter" data-chapter="invert">
+      <div class="container">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Industry impact</p>
+          <h2 class="sec-title">Running at sea. Not on a benchmark.</h2>
+          <p class="chapter-body">My research feeds <a href="https://www.archipelago.ca/" target="_blank" rel="noopener">Archipelago Marine Research</a>'s FishVue, the platform that automates catch and compliance monitoring on commercial fishing vessels. It helped FishVue win the 2026 VIATEC Innovative Excellence Award.</p>
+          <a class="link link--lg" href="https://www.archipelago.ca/archipelago-wins-innovative-excellence-viatec-2026-fishvue-ai" target="_blank" rel="noopener">Read about the award</a>
+        </header>
+        <div class="reveal">
+          <figure class="chapter-media" data-parallax>
+            <img src="assets/img/fishvue-deck.jpg" alt="Four deck-camera views from fishing vessels with traps detected, tracked and counted" width="1800" height="1024" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+        <p class="chapter-caption">TrapCounter output on deck cameras: detection, tracking and optical flow counting active traps.</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="sec sec-b" data-chapter="normal">
+      <div class="container">
+        <div class="contact-panel reveal" id="get-in-touch">
+          <p class="eyebrow">Contact</p>
+          <h2 class="sec-title">Let's build something that works.</h2>
+          <p class="sec-lede">Working on video understanding, deployable computer vision, or perception in messy real-world conditions? Email is the fastest way to reach me. I read every note.</p>
+          <a class="btn" href="mailto:alisoltani7596@gmail.com">alisoltani7596@gmail.com</a>
+          <p class="contact-loc">Victoria, BC, Canada</p>
+          <div class="profiles">
+            <a class="link" href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+            <a class="link" href="https://github.com/alisoltani7596" target="_blank" rel="noopener">GitHub</a>
+            <a class="link" href="https://www.linkedin.com/in/alisoltaninezhad" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="link" href="https://www.researchgate.net/profile/Ali-Soltaninezhad-4" target="_blank" rel="noopener">ResearchGate</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div>
+          <h4>Research</h4>
+          <ul>
+            <li><a href="#research">Interests</a></li>
+            <li><a href="#projects">Selected projects</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#industry">Industry impact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Teaching</h4>
+          <ul>
+            <li><a href="#teaching">Medical Image Processing</a></li>
+            <li><a href="#teaching">Computer Vision</a></li>
+            <li><a href="#teaching">Applied Data Analysis</a></li>
+            <li><a href="#honors">Honors &amp; awards</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Profiles</h4>
+          <ul>
+            <li><a href="https://scholar.google.com/citations?user=51VN5s0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a href="https://github.com/alisoltani7596" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/alisoltaninezhad" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.researchgate.net/profile/Ali-Soltaninezhad-4" target="_blank" rel="noopener">ResearchGate</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:alisoltani7596@gmail.com">alisoltani7596@gmail.com</a></li>
+            <li><a href="assets/cv/Ali_Soltaninezhad_CV.pdf" download>Download CV</a></li>
+            <li>Victoria, BC, Canada</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p>Copyright © <span id="year"></span> Ali Soltaninezhad. All rights reserved.</p>
+        <p>Plain HTML, CSS and JavaScript. No trackers.</p>
+        <a href="#hero">Back to top ›</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js?v=20260908o" defer></script>
+  <script src="assets/js/publications.js?v=20260908" defer></script>
+</body>
+</html>

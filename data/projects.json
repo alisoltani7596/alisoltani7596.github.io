@@ -2,6 +2,7 @@
   {
     "id": "ai-em-assistant",
     "title": "Missed-Event Routing for Temporal Action Detection",
+    "short": "Missed-event routing",
     "summary": "This work separates the events a detector missed from the ones it only mistimed, and decides which video windows a limited review budget should check.",
     "tags": [
       "Temporal Action Detection",
@@ -20,6 +21,7 @@
   {
     "id": "task-aware-anonymization",
     "title": "Privacy-Preserving Video Anonymization for At-Sea Monitoring",
+    "short": "Anonymization",
     "summary": "Masking who's in frame — and measuring how well — without touching what reviewers need to see.",
     "tags": [
       "Video Privacy",
@@ -38,6 +40,7 @@
   {
     "id": "error-aware-guidance",
     "title": "Which 10% do you show the human?",
+    "short": "Reviewer guidance",
     "summary": "Deck cameras record everything; reviewers watch about a tenth of it. This points that same tenth at the predictions most likely to be wrong.",
     "tags": [
       "Human-AI review",
@@ -58,6 +61,7 @@
   {
     "id": "tubelite",
     "title": "TubeLite",
+    "short": "TubeLite",
     "summary": "Lightweight multi-actor spatio-temporal action detection — no heavy transformers or optical flow.",
     "tags": [
       "Action Detection",
@@ -79,6 +83,7 @@
   {
     "id": "trapcounter",
     "title": "TrapCounter",
+    "short": "TrapCounter",
     "summary": "Detection, tracking and optical-flow pipeline for automatic counting of active fishing traps.",
     "tags": [
       "Tracking",
@@ -98,6 +103,7 @@
   {
     "id": "discard-detection",
     "title": "Discard Action Detection",
+    "short": "Discard detection",
     "summary": "Real-time motion-aware detection of rare discard events in commercial fishing footage.",
     "tags": [
       "Action Recognition",
